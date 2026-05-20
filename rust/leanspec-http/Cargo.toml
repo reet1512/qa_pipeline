@@ -1,0 +1,72 @@
+[package]
+authors.workspace = true
+description = "Rust HTTP server for LeanSpec UI using Axum"
+edition.workspace = true
+homepage.workspace = true
+license.workspace = true
+name = "leanspec-http"
+repository.workspace = true
+rust-version.workspace = true
+version.workspace = true
+
+[lib]
+name = "leanspec_http"
+path = "src/lib.rs"
+
+[[bin]]
+name = "leanspec-http"
+path = "src/main.rs"
+
+[dependencies]
+# Core library
+leanspec-core = {path = "../leanspec-core", features = ["full"]}
+
+# Web framework
+axum = {version = "0.8.7", features = ["ws"]}
+tower = "0.5.2"
+tower-http = {version = "0.6.8", features = ["cors", "trace", "fs"]}
+
+# Async runtime
+async-stream = "0.3"
+tokio.workspace = true
+
+# Serialization
+bytes = "1.7"
+futures-util = "0.3"
+serde.workspace = true
+serde_json.workspace = true
+ts-rs = {version = "10.1", features = ["chrono-impl", "no-serde-warnings"]}
+sha2 = "0.10"
+
+# Date/time
+chrono.workspace = true
+
+# Utilities
+ignore = "0.4"
+notify = "6.1"
+thiserror.workspace = true
+walkdir.workspace = true
+
+# Directories
+dirs = "5.0"
+
+# Unique IDs
+uuid = {version = "1.10", features = ["v4"]}
+
+# Tracing
+tracing = "0.1"
+tracing-subscriber = {version = "0.3", features = ["env-filter", "json"]}
+
+# CLI
+clap = {workspace = true, features = ["env"]}
+
+# Browser launching
+webbrowser = "1.0"
+
+# YAML parsing for config migration
+serde_yaml.workspace = true
+
+[dev-dependencies]
+reqwest = {version = "0.12", features = ["json"]}
+tempfile.workspace = true
+tokio = {version = "1.42", features = ["full", "test-util"]}

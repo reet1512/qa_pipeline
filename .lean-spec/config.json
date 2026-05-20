@@ -1,0 +1,20 @@
+{
+  "template": "spec-template.md",
+  "templates": {
+    "default": "spec-template.md"
+  },
+  "specsDir": "specs",
+  "structure": {
+    "pattern": "flat",
+    "prefix": "",
+    "dateFormat": "YYYYMMDD",
+    "sequenceDigits": 3,
+    "defaultFile": "README.md"
+  },
+  "features": {
+    "aiAgents": true
+  },
+  "agents": {
+    "default": "claude"
+  }
+}

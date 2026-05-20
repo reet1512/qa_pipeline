@@ -1,0 +1,64 @@
+[package]
+authors.workspace = true
+description = "Core library for LeanSpec - tool-agnostic spec framework with provider-based backends"
+edition.workspace = true
+homepage.workspace = true
+license.workspace = true
+name = "leanspec-core"
+repository.workspace = true
+rust-version.workspace = true
+version.workspace = true
+
+[lib]
+name = "leanspec_core"
+path = "src/lib.rs"
+
+[dependencies]
+chrono.workspace = true
+petgraph.workspace = true
+pulldown-cmark.workspace = true
+regex.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+serde_yaml.workspace = true
+sha2 = "0.10"
+thiserror.workspace = true
+tiktoken-rs.workspace = true
+ts-rs = {version = "10.1", features = ["chrono-impl", "no-serde-warnings"]}
+walkdir.workspace = true
+
+# Optional dependencies for infrastructure features
+dirs = {version = "5.0", optional = true}
+reqwest = {version = "0.12", optional = true, default-features = false}
+tempfile = {version = "3.14", optional = true}
+tokio = {workspace = true, optional = true}
+uuid = {version = "1.10", features = ["v4"], optional = true}
+
+[target.'cfg(unix)'.dependencies]
+nix = {version = "0.28", default-features = false, features = ["signal"]}
+
+[features]
+default = []
+full = ["storage", "git"]
+git = ["tempfile"]
+github = ["dep:reqwest", "reqwest/blocking", "reqwest/json", "reqwest/default-tls"]
+# Opt-in to running the GitHub integration tests that hit api.github.com.
+# Requires `GITHUB_TOKEN`, `TEST_GITHUB_OWNER`, `TEST_GITHUB_REPO` env vars.
+github-integration-tests = ["github"]
+ado = ["dep:reqwest", "reqwest/blocking", "reqwest/json", "reqwest/default-tls"]
+# Opt-in to running the ADO integration tests that hit dev.azure.com.
+# Requires `ADO_TOKEN`, `TEST_ADO_ORG`, `TEST_ADO_PROJECT` env vars.
+ado-integration-tests = ["ado"]
+jira = ["dep:reqwest", "reqwest/blocking", "reqwest/json", "reqwest/default-tls"]
+# Opt-in to running the Jira integration tests that hit a real Jira Cloud site.
+# Requires `JIRA_TOKEN`, `TEST_JIRA_HOST`, `TEST_JIRA_PROJECT`, `TEST_JIRA_EMAIL`.
+jira-integration-tests = ["jira"]
+storage = ["tokio", "dirs", "uuid"]
+# Expose the adapter compliance test harness for use by out-of-tree
+# adapter implementations. Always available within this crate's own tests.
+test-utils = []
+
+[dev-dependencies]
+mockito = "1.5"
+pretty_assertions.workspace = true
+tempfile.workspace = true

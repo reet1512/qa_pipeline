@@ -1,0 +1,15 @@
+services:
+  leanspec:
+    image: ghcr.io/codervisor/leanspec:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - leanspec-data:/home/leanspec/.lean-spec
+      # Mount project directories as needed:
+      # - /path/to/project-a:/projects/project-a:ro
+      # - /path/to/project-b:/projects/project-b:ro
+    environment:
+      - PORT=3000
+
+volumes:
+  leanspec-data:

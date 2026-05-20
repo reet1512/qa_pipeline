@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LeanSpec Runners Configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "default": {
+      "type": "string"
+    },
+    "runners": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-z0-9-]+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "command": {
+              "type": "string"
+            },
+            "detection": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "commands": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "config_dirs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "env_vars": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "extensions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "symlink_file": {
+              "type": "string"
+            },
+            "args": {
+              "type": "array",
+              "description": "Static arguments passed to the runner command before the prompt.",
+              "items": {
+                "type": "string"
+              }
+            },
+            "prompt_flag": {
+              "type": "string",
+              "description": "Controls how the session prompt is passed to the runner. Set to the flag name (e.g. '--message') to prepend it before the prompt value. Set to '-' to suppress prompt injection entirely. Omit (or set to null) to append the prompt as a positional argument."
+            },
+            "protocol": {
+              "type": "string",
+              "enum": ["shell", "acp"],
+              "description": "Optional execution protocol override. Defaults to shell when omitted. Set to 'acp' only for runners that support the ACP handshake."
+            },
+            "env": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "model": {
+              "type": "string",
+              "description": "Default model to use for this runner."
+            },
+            "model_providers": {
+              "type": "array",
+              "description": "models.dev provider IDs whose models this runner can use. Models are resolved dynamically from the registry.",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

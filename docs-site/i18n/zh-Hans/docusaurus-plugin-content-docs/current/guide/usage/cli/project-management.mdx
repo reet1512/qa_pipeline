@@ -1,0 +1,425 @@
+---
+id: 'project-management'
+title: '项目管理'
+sidebar_position: 3
+---
+
+# 项目管理
+
+使用 LeanSpec 的项目管理功能跟踪项目健康状况、管理依赖关系和验证Spec质量。
+
+## 看板与统计 {#board-stats}
+
+使用看板和统计命令即时了解项目健康状况。
+
+### 看板命令
+
+Spec的可视化看板视图：
+
+```bash
+lean-spec board
+```
+
+显示按状态列组织的Spec：
+- 📅 **计划中（Planned）** - 准备开始的Spec
+- ⏳ **进行中（In Progress）** - 活动工作
+- ✅ **完成（Complete）** - 已完成的Spec
+
+#### 项目概览
+
+看板包含项目概览框：
+- Spec总数
+- 活动Spec与完成Spec数量
+- 完成百分比
+- 速度指标（周期时间、吞吐量）
+
+#### 过滤
+
+过滤看板视图：
+
+```bash
+# 仅显示高优先级Spec
+lean-spec board --priority high
+
+# 显示带特定标签的Spec
+lean-spec board --tag feature
+
+# 组合过滤器
+lean-spec board --priority high --tag api
+```
+
+### 统计命令
+
+快速项目指标：
+
+```bash
+lean-spec stats
+```
+
+显示：
+- **概览**：Spec总数、活动数量、完成率
+- **状态**：状态分布的可视化条形图
+- **优先级焦点**：按优先级细分
+- **需要关注**：未开始的关键/高优先级Spec
+- **速度摘要**：周期时间和吞吐量
+
+#### 完整分析
+
+获取详细分析：
+
+```bash
+lean-spec stats --full
+```
+
+提供全面的项目洞察：
+- 详细状态指标
+- 优先级细分
+- 标签频率分析
+- 完成趋势
+- 每个状态的平均时间
+- 健康指标
+
+### 示例输出
+
+```
+📋 Spec Kanban Board
+
+╔════════════════════════════════════════════════════════════╗
+║  Project Overview                                          ║
+║  72 total · 15 active · 57 complete (79%)                  ║
+║  🚀 Velocity: 0.5d avg cycle · 34.0/wk throughput          ║
+╚════════════════════════════════════════════════════════════╝
+
+📅 Planned (14)
+
+  🔴 Critical (1)
+    065-v03-planning #release #planning #milestone
+
+  🟠 High (5)
+    098-github-multi-project-integration #web #github
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏳ In Progress (1)
+
+  🟡 Medium (1)
+    105-docs-site-enhancements
+```
+
+### 常见工作流程
+
+**每日站会：**
+```bash
+# 快速项目概览
+lean-spec board
+
+# 查看进行中的内容
+lean-spec board --status in-progress
+
+# 检查高优先级项目
+lean-spec board --priority high
+```
+
+**冲刺计划：**
+```bash
+# 审查项目健康状况
+lean-spec stats --full
+
+# 查看准备开始的内容
+lean-spec board --status planned
+
+# 检查容量
+lean-spec stats
+```
+
+**每周审查：**
+```bash
+# 整体项目指标
+lean-spec stats --full
+
+# 审查已完成的工作
+lean-spec board --status complete
+
+# 识别瓶颈
+lean-spec board --status in-progress
+```
+
+### 项目健康指标
+
+看板和统计命令有助于识别：
+
+**⚠️ 警告信号：**
+- 太多进行中的Spec（焦点问题）
+- 没有更新的旧Spec（陈旧工作）
+- 计划中Spec的百分比高（执行差距）
+- 有未满足依赖关系的Spec（使用 `lean-spec deps` 检查）
+
+**✅ 健康信号：**
+- 稳定的完成率
+- 平衡的状态分布
+- 活跃的最近更新
+- 明确的优先级焦点
+
+## 依赖关系 {#dependencies}
+
+使用依赖关系跟踪管理Spec之间的关系。
+
+### 关系类型
+
+LeanSpec 有两种类型的关系：
+
+#### `related` - 双向软引用
+- **含义**：信息关系（Spec是连接/相关的）
+- **行为**：自动从两侧显示
+- **符号**：⟷（双向箭头）
+
+#### `depends_on` - 方向性阻塞依赖
+- **含义**：硬依赖 - Spec在依赖关系完成之前无法开始
+- **行为**：仅方向性（从每一侧显示不同）
+- **符号**：→（依赖于）和 ←（阻塞）
+
+### 相关Spec
+
+使用 `related` 建立信息连接：
+
+```bash
+# 将Spec 042 链接到 043 和 044
+lean-spec link 042 --related 043,044
+```
+
+两侧都能看到关系：
+
+```bash
+$ lean-spec deps 042
+Related Specs:
+  ⟷ 043-feature-launch [in-progress]
+  ⟷ 044-api-update [planned]
+
+$ lean-spec deps 043
+Related Specs:
+  ⟷ 042-error-handling [complete]  # 自动显示！
+```
+
+**在以下情况下使用：**
+- Spec涵盖相关主题或功能
+- 工作是协调的但不阻塞
+- 上下文有帮助但不是必需的
+
+### 阻塞依赖关系
+
+使用 `depends_on` 建立硬依赖关系：
+
+```bash
+# Spec A 依赖于Spec B
+lean-spec link spec-a --depends-on spec-b
+
+# Spec A 依赖于多个Spec
+lean-spec link spec-a --depends-on spec-b spec-c
+```
+
+从每一侧显示不同：
+
+```bash
+$ lean-spec deps spec-a
+Depends On:
+  → spec-b [in-progress]  # A 依赖于 B
+
+$ lean-spec deps spec-b
+Required By:
+  ← spec-a [planned]  # B 被 A 需要
+```
+
+**在以下情况下使用：**
+- Spec在另一个完成之前确实无法开始
+- 有明确的依赖链
+- 工作必须按特定顺序完成
+
+### Deps 命令
+
+查看Spec的所有关系：
+
+```bash
+lean-spec deps <spec>
+```
+
+显示：
+- 此Spec依赖的Spec（→）
+- 依赖此Spec的Spec（←）
+- 相关Spec（⟷）
+
+**示例输出：**
+
+```
+Dependency Graph for 043-feature-launch
+
+Depends On:
+  → 042-error-handling [complete] ✅
+  → 041-api-design [complete] ✅
+
+Required By:
+  ← 044-integration-test [planned]
+  ← 045-documentation [planned]
+
+Related Specs:
+  ⟷ 040-performance [in-progress]
+  ⟷ 039-security-audit [complete]
+```
+
+### 最佳实践
+
+**1. 默认使用 `related`**
+
+大多数关系是信息性的，不是阻塞的：
+
+```bash
+# ✅ 好 - 用于上下文的相关Spec
+lean-spec link feature-a --related feature-b
+
+# ❌ 过度使用 - 不是真正的阻塞依赖
+lean-spec link feature-a --depends-on documentation-spec
+```
+
+**2. 保留 `depends_on` 用于真正的阻塞器**
+
+仅在工作确实无法开始时使用：
+
+```bash
+# ✅ 好 - API 必须在集成之前存在
+lean-spec link integration --depends-on api-implementation
+
+# ❌ 坏 - 这些可以并行完成
+lean-spec link feature --depends-on docs-update
+```
+
+**3. 避免循环依赖**
+
+```bash
+# ❌ 坏 - 循环依赖
+lean-spec link spec-a --depends-on spec-b
+lean-spec link spec-b --depends-on spec-a
+```
+
+LeanSpec 会警告循环依赖。
+
+**4. 更新一次，到处显示**
+
+`related` 只需要从一侧链接：
+
+```bash
+# ✅ 好 - 从 A 链接到 B
+lean-spec link spec-a --related spec-b
+
+# Spec B 自动显示与 A 的关系
+```
+
+### 依赖关系工作流程
+
+**开始工作之前：**
+
+检查依赖关系：
+
+```bash
+lean-spec deps <spec>
+```
+
+确保在开始之前所有 `depends_on` Spec都已完成。
+
+**在计划期间：**
+
+映射关系：
+
+```bash
+# 查看相关工作
+lean-spec deps feature-spec
+
+# 检查被阻塞的内容
+lean-spec board --status planned
+```
+
+**识别瓶颈：**
+
+查找阻塞其他Spec的Spec：
+
+```bash
+# 检查依赖于此的内容
+lean-spec deps <in-progress-spec>
+
+# 查找 "Required By" 项
+```
+
+### 依赖关系模式
+
+**顺序工作：**
+
+```bash
+# 阶段 2 依赖于阶段 1
+lean-spec link phase-2 --depends-on phase-1
+
+# 阶段 3 依赖于阶段 2
+lean-spec link phase-3 --depends-on phase-2
+```
+
+**具有协调的并行工作：**
+
+```bash
+# 链接所有相关功能
+lean-spec link feature-a --related feature-b,feature-c
+lean-spec link feature-b --related feature-c
+```
+
+**集成点：**
+
+```bash
+# 测试在功能完成之前被阻塞
+lean-spec link tests --depends-on core-feature
+
+# 文档相关但不阻塞
+lean-spec link docs --related core-feature
+```
+
+### 管理更改
+
+**添加依赖关系：**
+
+```bash
+# 添加依赖关系
+lean-spec link my-spec --depends-on prerequisite-spec
+```
+
+**删除依赖关系：**
+
+当不再需要依赖关系时：
+
+```bash
+# 删除依赖关系
+lean-spec unlink my-spec --depends-on old-requirement
+
+# 替换为 related（可选）
+lean-spec link my-spec --related old-requirement
+```
+
+## 最佳实践
+
+### 看板与统计
+
+1. **每日检查** - 用 `lean-spec board` 开始您的一天
+2. **每周审查** - 使用 `lean-spec stats --full` 查看趋势
+3. **限制 WIP** - 控制进行中的Spec
+4. **定期更新** - 使用 `lean-spec update` 保持状态最新
+5. **使用优先级** - 首先关注高优先级工作
+
+### 依赖关系
+
+1. **默认使用 `related`** - 大多数关系不是阻塞的
+2. **保留 `depends_on`** - 仅用于真正的阻塞器
+3. **开始前检查** - 确保满足依赖关系
+4. **避免循环依赖** - 保持依赖链简单
+5. **使用 CLI 命令** - `lean-spec link`/`unlink`，而不是手动编辑
+
+## 下一步
+
+- **[创建和管理Spec](/zh-Hans/docs/guide/usage/cli/creating-managing)** - 基本操作
+- **[查找Spec](/zh-Hans/docs/guide/usage/cli/finding-specs)** - 搜索和发现
+- **[验证](/zh-Hans/docs/guide/usage/cli/validation)** - 检查Spec质量
+- **[可视化模式](/zh-Hans/docs/guide/visual-mode)** - 在 Web UI 中浏览Spec
+- **[CLI 参考](/zh-Hans/docs/reference/cli)** - 完整命令文档

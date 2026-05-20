@@ -1,0 +1,1542 @@
+{
+  "errors": {
+    "unknownError": "Unknown error"
+  },
+  "navigation": {
+    "home": "Home",
+    "specs": "Specs",
+    "chat": "AI Chat",
+    "chatDescription": "Talk with LeanSpec AI",
+    "dependencies": "Dependencies",
+    "stats": "Stats",
+    "context": "Context",
+    "projects": "Projects",
+    "manageProjects": "Manage projects",
+    "machines": "Machines",
+    "manageMachines": "Manage machines",
+    "collapse": "Collapse",
+    "closeMenu": "Close menu",
+    "dashboard": "Dashboard",
+    "allSpecifications": "All Specifications",
+    "sessions": "Sessions",
+    "sessionsDescription": "Monitor AI sessions",
+    "files": "Files",
+    "filesDescription": "Browse project codebase",
+    "dependencyGraph": "Dependency Graph",
+    "analytics": "Analytics",
+    "projectContext": "Project Context",
+    "settings": "Settings",
+    "settingsDescription": "Preferences and config",
+    "toggleMenu": "Toggle menu",
+    "docsTooltip": "Documentation",
+    "githubTooltip": "GitHub repository",
+    "logoAlt": "LeanSpec",
+    "githubAlt": "GitHub",
+    "brandName": "LeanSpec",
+    "openMenu": "Open menu"
+  },
+  "search": {
+    "placeholder": "Search specs...",
+    "noResults": "No results found",
+    "searchSpecs": "Search Specs"
+  },
+  "status": {
+    "draft": "Draft",
+    "planned": "Planned",
+    "inProgress": "In Progress",
+    "in-progress": "In Progress",
+    "complete": "Complete",
+    "archived": "Archived",
+    "blocked": "Blocked"
+  },
+  "priority": {
+    "critical": "Critical",
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "unknown": "Unknown"
+  },
+  "actions": {
+    "create": "Create",
+    "update": "Update",
+    "delete": "Delete",
+    "add": "Add",
+    "archive": "Archive",
+    "view": "View",
+    "edit": "Edit",
+    "save": "Save",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "close": "Close",
+    "back": "Back",
+    "clear": "Clear",
+    "refresh": "Refresh",
+    "retry": "Retry",
+    "next": "Next",
+    "loading": "Loading...",
+    "search": "Search",
+    "backToTop": "Back to top",
+    "openSidebar": "Open sidebar",
+    "validate": "Validate",
+    "remove": "Remove",
+    "report": "Report",
+    "open": "Open"
+  },
+  "sessions": {
+    "title": "AI Sessions",
+    "subtitle": "Run and monitor AI coding sessions for this spec.",
+    "empty": "No sessions yet.",
+    "emptyForSpec": "No sessions for this spec",
+    "emptyLogs": "No logs recorded yet.",
+    "status": {
+      "pending": "Pending",
+      "indicators": {
+        "running": "Session running",
+        "attention": "Session needs attention",
+        "completedRecent": "Session completed recently"
+      },
+      "running": "Running",
+      "paused": "Paused",
+      "completed": "Completed",
+      "failed": "Failed",
+      "cancelled": "Cancelled"
+    },
+    "actions": {
+      "new": "New Session",
+      "run": "Run Session",
+      "start": "Start",
+      "pause": "Pause",
+      "resume": "Resume",
+      "archive": "Archive",
+      "stop": "Stop",
+      "viewAll": "View all",
+      "logs": "View Logs",
+      "view": "View",
+      "retry": "Retry",
+      "export": "Export",
+      "copyId": "Copy ID",
+      "back": "Back to Sessions",
+      "restart": "Restart",
+      "viewSpec": "View Spec",
+      "createAndStart": "Create & Start"
+    },
+    "labels": {
+      "runner": "Runner",
+      "mode": "Mode",
+      "model": "Model",
+      "started": "Started",
+      "ended": "Ended",
+      "duration": "Duration",
+      "status": "Status",
+      "spec": "Spec",
+      "specId": "Spec ID",
+      "specIdPlaceholder": "Expected Spec ID",
+      "prompt": "Initial Prompt",
+      "promptPlaceholder": "Optional instructions or context for the AI runner",
+      "promptTemplateDefault": "Implement the following specs:\n\n{specs}",
+      "promptPreview": "Effective prompt preview",
+      "promptPreviewEmpty": "Attach specs or enter a custom prompt to preview what will be sent.",
+      "attachSpec": "@ spec",
+      "noSpec": "No spec",
+      "tokens": "Tokens",
+      "cost": "Estimated cost",
+      "costUnknown": "Unknown",
+      "costApprox": "≈${{value}}",
+      "unknownTime": "Unknown",
+      "autoScroll": "Auto-scroll",
+      "logs": "Logs",
+      "plan": "Plan",
+      "protocolAcp": "ACP",
+      "protocolCli": "CLI",
+      "activeTool": "Tool: {{tool}}",
+      "planProgress": "Plan: {{completed}}/{{total}}",
+      "completed": "Completed"
+    },
+    "modes": {
+      "autonomous": "Autonomous",
+      "guided": "Guided"
+    },
+    "runners": {
+      "claude": "Claude",
+      "copilot": "GitHub Copilot",
+      "codex": "Codex",
+      "opencode": "OpenCode",
+      "aider": "Aider",
+      "cline": "Cline",
+      "gemini": "Gemini",
+      "cursor": "Cursor",
+      "windsurf": "Windsurf",
+      "droid": "Droid",
+      "kiro": "Kiro",
+      "kimi": "Kimi",
+      "qodo": "Qodo",
+      "amp": "Amp",
+      "trae": "Trae",
+      "qwen-code": "Qwen Code",
+      "goose": "Goose",
+      "openhands": "OpenHands",
+      "continue": "Continue",
+      "crush": "Crush",
+      "roo": "Roo",
+      "codebuddy": "CodeBuddy",
+      "kilo": "Kilo",
+      "augment": "Augment",
+      "antigravity": "Antigravity"
+    },
+    "select": {
+      "placeholder": "Select...",
+      "search": "Search...",
+      "empty": "No results found."
+    },
+    "export": {
+      "fallbackName": "logs"
+    },
+    "dialogs": {
+      "createTitle": "Create AI Session",
+      "createDescription": "Choose the runner and mode, then start the session.",
+      "logsTitle": "Session Logs"
+    },
+    "errors": {
+      "load": "Failed to load sessions.",
+      "create": "Failed to create session.",
+      "noProjectPath": "Project path missing for this workspace."
+    },
+    "permissions": {
+      "allow_once": "Allow once",
+      "allow_always": "Always allow",
+      "reject": "Reject",
+      "responding": "Sending response..."
+    }
+  },
+  "sessionsPage": {
+    "title": "Sessions",
+    "description": "Monitor AI coding sessions across specs.",
+    "count": "{{count}} sessions",
+    "filters": {
+      "search": "Search by session, spec, or runner",
+      "status": "Status",
+      "runner": "Runner",
+      "mode": "Mode",
+      "spec": "Spec"
+    },
+    "sort": {
+      "startedDesc": "Started (newest)",
+      "startedAsc": "Started (oldest)",
+      "durationDesc": "Duration (longest)",
+      "status": "Status"
+    },
+    "buttons": {
+      "loadMore": "Load more",
+      "refresh": "Refresh list"
+    },
+    "state": {
+      "errorTitle": "Unable to load sessions",
+      "emptyTitle": "No sessions yet",
+      "emptyDescription": "Create a new session to start tracking AI runs.",
+      "noResultsTitle": "No matching sessions",
+      "noResultsDescription": "Try adjusting your filters or search."
+    },
+    "groups": {
+      "active": "Active",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "older": "Older"
+    },
+    "labels": {
+      "noSpecs": "No specs"
+    }
+  },
+  "sessionDetail": {
+    "title": "Session {{id}}",
+    "description": "Live logs and session details.",
+    "eventsTitle": "Session Timeline",
+    "eventsDescription": "Lifecycle events captured for this session.",
+    "eventsEmpty": "No events recorded yet.",
+    "archiveSuccess": "Archived to {{path}}",
+    "archiveError": "Failed to archive session logs.",
+    "logsTitle": "Live Logs",
+    "logsDescription": "Streaming output from this session.",
+    "filters": {
+      "search": "Search logs",
+      "autoScroll": "Auto-scroll",
+      "acp": {
+        "messages": "Messages",
+        "thoughts": "Thoughts",
+        "tools": "Tool Calls",
+        "plan": "Plan"
+      }
+    },
+    "displayMode": {
+      "messages": "Messages",
+      "verbose": "Verbose"
+    },
+    "actions": {
+      "download": "Download logs as file",
+      "copyLogs": "Copy logs to clipboard"
+    },
+    "state": {
+      "notFoundTitle": "Session unavailable",
+      "notFoundDescription": "The session could not be loaded."
+    }
+  },
+  "chat": {
+    "title": "LeanSpec AI Chat",
+    "subtitle": "Manage specs conversationally without leaving the browser.",
+    "modelLabel": "Model",
+    "clear": "Clear",
+    "empty": "Ask me to list, create, update, or validate specs.",
+    "placeholder": "Ask LeanSpec to manage your specs...",
+    "helper": "Tips: “List all specs”, “Create a spec for rate limiting”, “Mark 082 complete”.",
+    "send": "Send",
+    "thinking": "Thinking...",
+    "error": "An error occurred. Please try again.",
+    "modelError": "Model error",
+    "searchModels": "Search models...",
+    "noModelsFound": "No models found",
+    "noKey": "No Key",
+    "providersSummary": "{{total}} providers, {{configured}} configured",
+    "availableProvidersSummary": "{{count}} available providers",
+    "modelsLoadError": "Failed to load models",
+    "autoTitle": {
+      "generating": "Generating title..."
+    },
+    "newChat": "New Chat",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "searchPlaceholder": "Search conversations...",
+    "history": {
+      "searchPlaceholder": "Search history...",
+      "empty": "No conversations found"
+    },
+    "shortcuts": {
+      "newChat": "New Chat (Cmd+Shift+N)",
+      "history": "History (Cmd+Shift+H)",
+      "closeSidebar": "Close (Cmd+Shift+I)"
+    },
+    "emptyState": {
+      "prompt": "Select a conversation or start a new one."
+    },
+    "noSearchResults": "No conversations found",
+    "noConversations": "No conversations yet",
+    "startConversation": "Click 'New Chat' to start a conversation",
+    "noMessagesYet": "No messages yet",
+    "modelSelector": {
+      "selectPlaceholder": "Select model...",
+      "badges": {
+        "tool": "Tool",
+        "reasoning": "Reasoning",
+        "vision": "Vision"
+      },
+      "metrics": {
+        "contextWindow": "Context Window",
+        "maxOutput": "Max Output",
+        "inputCost": "Input Cost",
+        "outputCost": "Output Cost",
+        "vision": "Vision"
+      },
+      "hiddenItem": "Hidden"
+    },
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "previous7Days": "Previous 7 Days",
+    "older": "Older",
+    "storageUsage": "Storage used: {{size}}",
+    "storageLocation": "Location: {{path}}",
+    "storageUnavailable": "Storage info unavailable",
+    "storageUnits": {
+      "zero": "0 B",
+      "byte": "B",
+      "kilobyte": "KB",
+      "megabyte": "MB",
+      "gigabyte": "GB",
+      "terabyte": "TB"
+    },
+    "deleteConversation": "Delete conversation",
+    "renameConversation": "Rename conversation",
+    "disabledTitle": "AI chat is disabled",
+    "disabledDescription": "Set VITE_ENABLE_AI=true to enable the chat experience.",
+    "toggleModelSettings": "Toggle model settings",
+    "openChat": "Open AI Chat",
+    "openFullChat": "Full Chat",
+    "attachSpec": "@ spec",
+    "specContextPrefix": "Use the following specs as context:",
+    "toolExecution": {
+      "status": {
+        "failed": "Failed",
+        "completed": "Completed",
+        "running": "Running...",
+        "success": "Success",
+        "error": "Error"
+      },
+      "labels": {
+        "input": "Input",
+        "output": "Output",
+        "error": "Error"
+      },
+      "actions": {
+        "showAll": "Show all",
+        "showLess": "Show less",
+        "copy": "Copy"
+      },
+      "tabs": {
+        "input": "Input",
+        "output": "Output"
+      },
+      "viewToggle": {
+        "ui": "UI",
+        "json": "JSON"
+      }
+    },
+    "settings": {
+      "title": "Chat Configuration",
+      "description": "Configure AI providers, models, and chat behavior",
+      "provider": "Provider",
+      "model": "Model",
+      "providers": "AI Providers",
+      "providersDescription": "Manage OpenAI, Anthropic, Deepseek, and other AI providers",
+      "models": "Models",
+      "addProvider": "Add Provider",
+      "editProvider": "Edit Provider",
+      "addModel": "Add Model",
+      "editModel": "Edit Model",
+      "default": "Default",
+      "keyConfigured": "API Key Set",
+      "noKey": "No API Key",
+      "defaults": "Default Settings",
+      "defaultsDescription": "Configure default provider, model, and behavior",
+      "defaultProvider": "Default Provider",
+      "defaultModel": "Default Model",
+      "maxSteps": "Max Steps",
+      "maxStepsHelp": "Maximum number of tool execution steps (1-50)",
+      "confirmDeleteProvider": "Are you sure you want to delete this provider?",
+      "confirmDeleteModel": "Are you sure you want to delete this model?",
+      "providerDialogDescription": "Configure provider details and API credentials",
+      "modelDialogDescription": "Add or edit model information",
+      "providerId": "Provider ID",
+      "providerIdHelp": "Lowercase identifier (e.g., openai, anthropic)",
+      "providerName": "Display Name",
+      "baseURL": "Base URL",
+      "baseURLHelp": "Optional custom API endpoint (for OpenRouter, etc.)",
+      "apiKey": "API Key",
+      "apiKeyHelp": "Use ${ENV_VAR} for environment variables or paste directly",
+      "modelId": "Model ID",
+      "modelName": "Display Name",
+      "maxTokens": "Max Tokens",
+      "maxTokensHelp": "Context window size (optional)",
+      "deleteProviderTitle": "Delete Provider",
+      "deleteModelTitle": "Delete Model",
+      "placeholders": {
+        "providerId": "openai",
+        "providerName": "OpenAI",
+        "baseUrl": "https://api.openai.com/v1",
+        "apiKeyMasked": "••••••••",
+        "apiKeyEnv": "${OPENAI_API_KEY}",
+        "modelId": "gpt-4o",
+        "modelName": "GPT-4o",
+        "maxTokens": "128000"
+      },
+      "errors": {
+        "loadConfig": "Failed to load config",
+        "saveConfig": "Failed to save config",
+        "loadConfiguration": "Failed to load configuration",
+        "idRequired": "ID is required",
+        "idExists": "This ID already exists",
+        "idInvalid": "ID must be lowercase letters, numbers, and hyphens only",
+        "nameRequired": "Name is required",
+        "urlInvalid": "URL must start with http:// or https://",
+        "modelIdRequired": "Model ID is required",
+        "modelIdExists": "This model ID already exists",
+        "modelNameRequired": "Model name is required",
+        "maxTokensInvalid": "Max tokens must be a number"
+      }
+    }
+  },
+  "spec": {
+    "spec": "Spec",
+    "specs": "Specs",
+    "specification": "Specification",
+    "specifications": "Specifications",
+    "title": "Title",
+    "description": "Description",
+    "tags": "Tags",
+    "createdAt": "Created",
+    "updatedAt": "Updated",
+    "completedAt": "Completed"
+  },
+  "specs": {
+    "hierarchy": {
+      "umbrella": "Umbrella Spec",
+      "inParent": "In: {{parent}}"
+    }
+  },
+  "relationships": {
+    "title": "Relationships",
+    "description": "Manage hierarchy and dependencies for this spec.",
+    "button": "Relationships",
+    "sections": {
+      "hierarchy": "Hierarchy",
+      "dependencies": "Dependencies"
+    },
+    "parent": "Parent",
+    "children": "Children",
+    "dependsOn": "Depends On",
+    "requiredBy": "Required By",
+    "actions": {
+      "setParent": "Set parent",
+      "addChild": "Add child",
+      "addDependsOn": "Add dependency",
+      "addRequiredBy": "Add dependent",
+      "viewHierarchy": "View in hierarchy",
+      "viewDependencies": "View dependency graph"
+    },
+    "empty": {
+      "parent": "No parent set",
+      "children": "No children",
+      "dependsOn": "No dependencies",
+      "requiredBy": "No dependents",
+      "noSpecs": "No specs found"
+    },
+    "confirmRemove": "Remove relationship to {{label}}?"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your preferences and configuration",
+    "collapseSidebar": "Collapse sidebar",
+    "expandSidebar": "Expand sidebar",
+    "tabs": {
+      "models": "Models",
+      "runners": "Runners",
+      "appearance": "Appearance"
+    },
+    "ai": {
+      "providers": "AI Providers",
+      "providersDescription": "Configure API keys for AI providers from the models.dev registry",
+      "searchPlaceholder": "Search providers or models...",
+      "models": "Models",
+      "addProvider": "Add Provider",
+      "editProvider": "Edit Provider",
+      "addModel": "Add Model",
+      "editModel": "Edit Model",
+      "default": "Default",
+      "keyConfigured": "Configured",
+      "noKey": "No Key",
+      "builtIn": "Built-in",
+      "configure": "Configure",
+      "setUp": "Set Up",
+      "setDefault": "Set default",
+      "discoverModels": "Discover models",
+      "saveAndSetDefault": "Save & Set Default",
+      "defaults": "Default Settings",
+      "defaultsDescription": "Configure default provider, model, and behavior",
+      "defaultProvider": "Default Provider",
+      "defaultModel": "Default Model",
+      "selectProvider": "Select a provider",
+      "selectModel": "Select a model",
+      "maxSteps": "Max Steps",
+      "maxStepsHelp": "Maximum number of tool execution steps (1-50)",
+      "providerId": "Provider ID",
+      "providerIdHelp": "Lowercase identifier (e.g., openai, anthropic)",
+      "providerName": "Display Name",
+      "baseURL": "Base URL",
+      "baseURLHelp": "Optional custom API endpoint (for OpenRouter, etc.)",
+      "apiKey": "API Key",
+      "apiKeyHelp": "Use ${ENV_VAR} for environment variables or paste directly",
+      "modelId": "Model ID",
+      "modelName": "Display Name",
+      "maxTokens": "Max Tokens",
+      "maxTokensHelp": "Context window size (optional)",
+      "providerDialogDescription": "Configure provider details and API credentials",
+      "modelDialogDescription": "Add or edit model information",
+      "refreshRegistry": "Refresh",
+      "configuredProviders": "Configured Providers",
+      "availableProviders": "Available Providers",
+      "agenticModels": "agentic models",
+      "total": "total",
+      "updateKey": "Update Key",
+      "configureKey": "Configure",
+      "hideModels": "Hide models",
+      "showModels": "Show models",
+      "moreModels": "more models",
+      "modelsAvailable": "models available",
+      "capabilities": {
+        "toolCall": "Tool calling",
+        "reasoning": "Reasoning",
+        "vision": "Vision"
+      },
+      "customProviders": "Custom Providers",
+      "customProvidersDescription": "Add providers not in the models.dev registry",
+      "addCustomProvider": "Add Custom",
+      "noCustomProviders": "No custom providers configured",
+      "custom": "Custom",
+      "configureApiKey": "Configure API Key",
+      "clearApiKey": "Clear API key",
+      "configureModels": "Configure {{provider}} Models",
+      "configureModelsDescription": "Select which models to enable for this provider",
+      "apiKeyDialogDescription": "Enter your API key for {{provider}}",
+      "azureApiKeyDialogDescription": "Configure Azure OpenAI with your resource name and API key",
+      "azureResourceName": "Azure Resource Name",
+      "azureResourceNameHelp": "The name of your Azure OpenAI resource (e.g., 'my-openai-resource')",
+      "apiKeyStorageNote": "API key will be stored locally in your config file",
+      "configureProvider": "Configure {{provider}}",
+      "configureProviderDescription": "Configure provider details and model access",
+      "restrictModels": "Restrict available models",
+      "allModelsEnabled": "All models enabled",
+      "allModelsEnabledDesc": "All models from this provider are currently available in the chat.",
+      "enableRestriction": "Enable restriction",
+      "selectedOf": "selected of",
+      "selectAll": "Select all",
+      "deselectAll": "Deselect all",
+      "restricted": "Restricted",
+      "outOfTotal": "of {{total}} total",
+      "placeholders": {
+        "azureResourceName": "my-openai-resource",
+        "apiKeyEnv": "{{provider}}_API_KEY",
+        "apiKeyPrefix": "sk-...",
+        "customProviderId": "my-provider",
+        "customProviderName": "My Provider",
+        "customProviderBaseUrl": "https://api.example.com/v1"
+      },
+      "editCustomProvider": "Edit Custom Provider",
+      "customProviderDialogDescription": "Configure a custom provider with API endpoint and models",
+      "leaveEmptyToKeep": "Leave empty to keep existing",
+      "noModelsAdded": "No models added yet",
+      "confirmDeleteProvider": "Are you sure you want to delete this provider?",
+      "validation": {
+        "revalidateAll": "Re-validate all",
+        "checking": "Checking",
+        "valid": "Valid",
+        "invalid": "Invalid",
+        "lastChecked": "Last checked: {{time}}"
+      },
+      "details": {
+        "title": "Details",
+        "providerId": "Provider ID",
+        "baseUrl": "Base URL",
+        "modelCount": "{{count}} models ({{agentic}} agentic)"
+      },
+      "sort": {
+        "name": "Name",
+        "models": "Model Count",
+        "configured": "Configured First"
+      },
+      "modelSort": {
+        "sortBy": "Sort by",
+        "name": "Name",
+        "tokens": "Tokens"
+      },
+      "filters": {
+        "status": "Status",
+        "all": "All",
+        "configured": "Configured",
+        "unconfigured": "Not Configured",
+        "showConfiguredOnly": "Show configured only",
+        "showUnconfiguredOnly": "Show unconfigured only"
+      },
+      "filteredCount": "{{filtered}} of {{total}} providers",
+      "toasts": {
+        "defaultProvider": "Default provider set to {{provider}}",
+        "apiKeySaved": "API key saved",
+        "apiKeyCleared": "API key cleared",
+        "modelsSaved": "Model preferences saved"
+      },
+      "errors": {
+        "loadConfig": "Failed to load config",
+        "refreshFailed": "Failed to refresh",
+        "setApiKeyFailed": "Failed to set API key",
+        "saveConfigFailed": "Failed to save config",
+        "saveFailed": "Failed to save",
+        "idRequired": "ID is required",
+        "idExists": "This ID already exists",
+        "idInvalid": "ID must be lowercase letters, numbers, and hyphens only",
+        "nameRequired": "Name is required",
+        "urlInvalid": "URL must start with http:// or https://",
+        "modelIdRequired": "Model ID is required",
+        "modelIdExists": "This model ID already exists",
+        "modelNameRequired": "Model name is required",
+        "maxTokensInvalid": "Max tokens must be a number",
+        "apiKeyRequired": "API key is required",
+        "azureResourceNameRequired": "Azure resource name is required",
+        "modelsRequired": "At least one model is required"
+      }
+    },
+    "runners": {
+      "title": "AI Runners",
+      "description": "Manage local runner commands used for AI sessions",
+      "addRunner": "Add Runner",
+      "editRunner": "Edit Runner",
+      "default": "Default",
+      "available": "Available",
+      "unavailable": "Not found",
+      "ideOnly": "IDE-only",
+      "ideOnlyCommand": "IDE-only (not runnable from CLI)",
+      "setDefault": "Set default",
+      "empty": "No runners configured yet.",
+      "dialogDescription": "Configure runner command, args, and environment overrides",
+      "confirmDelete": "Delete runner \"{{id}}\"?",
+      "validation": {
+        "revalidateAll": "Re-validate all",
+        "checking": "Checking",
+        "valid": "Valid",
+        "invalid": "Invalid",
+        "lastChecked": "Last checked: {{time}}"
+      },
+      "details": {
+        "title": "Details",
+        "id": "Runner ID",
+        "source": "Source: {{source}}",
+        "version": "Version",
+        "notFound": "Command not found in PATH"
+      },
+      "toasts": {
+        "defaultRunner": "Default runner set to {{runner}}"
+      },
+      "fields": {
+        "id": "Runner ID",
+        "idHelp": "Lowercase identifier (e.g., claude, copilot)",
+        "name": "Display Name",
+        "command": "Command",
+        "args": "Arguments",
+        "argsHelp": "One argument per line",
+        "defaultModel": "Default Model",
+        "modelProviders": "Model Providers",
+        "modelProvidersHelp": "One models.dev provider ID per line (e.g. openai, anthropic, google)",
+        "env": "Environment Variables",
+        "envHelp": "One KEY=VALUE per line"
+      },
+      "placeholders": {
+        "id": "claude",
+        "name": "Claude Code",
+        "command": "claude",
+        "args": "--dangerously-skip-permissions\n--print",
+        "defaultModel": "claude-3-7-sonnet",
+        "searchOrTypeModel": "Search or type a model...",
+        "modelProviders": "anthropic\nopenai",
+        "env": "ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}"
+      },
+      "errors": {
+        "noProject": "Project path is required to manage runners.",
+        "loadFailed": "Failed to load runners.",
+        "saveFailed": "Failed to save runner.",
+        "deleteFailed": "Failed to delete runner.",
+        "validateFailed": "Failed to validate runner.",
+        "defaultFailed": "Failed to set default runner.",
+        "idRequired": "ID is required",
+        "idExists": "This ID already exists",
+        "idInvalid": "ID must be lowercase letters, numbers, and hyphens only",
+        "commandRequired": "Command is required",
+        "envInvalid": "Each environment line must be KEY=VALUE"
+      },
+      "customModel": "Custom",
+      "useCustomModel": "Use \"{{model}}\"",
+      "clearModel": "Clear model",
+      "noModelsFound": "Type a model name",
+      "searchPlaceholder": "Search runners...",
+      "noResults": "No runners match your filters",
+      "sort": {
+        "name": "Name",
+        "available": "Available First"
+      },
+      "filters": {
+        "status": "Status",
+        "showUnavailable": "Show unavailable",
+        "showIdeRunners": "Show IDE runners",
+        "source": "Source",
+        "allSources": "All Sources",
+        "builtin": "Built-in",
+        "custom": "Custom"
+      },
+      "filteredCount": "{{filtered}} of {{total}} runners"
+    },
+    "appearance": {
+      "theme": "Theme",
+      "themeDescription": "Choose how LeanSpec looks to you",
+      "light": "Light",
+      "lightDescription": "Classic light theme",
+      "dark": "Dark",
+      "darkDescription": "Easy on the eyes",
+      "system": "System",
+      "systemDescription": "Match system preference",
+      "displayMode": "Display Mode",
+      "displayModeDescription": "Choose the layout width",
+      "normal": "Normal",
+      "normalDescription": "Centered with max width",
+      "wide": "Wide",
+      "wideDescription": "Full width content",
+      "language": "Language",
+      "languageDescription": "Choose your preferred language",
+      "selectLanguage": "Select Language"
+    }
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "toggleTheme": "Toggle theme"
+  },
+  "wideMode": {
+    "toggle": "Toggle layout mode",
+    "normal": "Normal",
+    "wide": "Wide"
+  },
+  "language": {
+    "english": "English",
+    "chinese": "中文",
+    "changeLanguage": "Change language"
+  },
+  "projects": {
+    "project": "Project",
+    "projects": "Projects",
+    "switchProject": "Switch Project",
+    "createProject": "Create Project",
+    "manageProjects": "Manage Projects",
+    "selectProject": "Select Project",
+    "description": "Manage your LeanSpec workspaces.",
+    "colorLabel": "Color",
+    "validationFailed": "Validation failed",
+    "newProject": "New Project",
+    "backTo": "Back to {{projectName}}",
+    "rename": "Rename",
+    "projectColor": "Project Color",
+    "favorite": "Favorite",
+    "unfavorite": "Unfavorite",
+    "validatePath": "Validate Path",
+    "specs": "Specs",
+    "completion": "Completion",
+    "local": "Local",
+    "noProjectsFound": "No projects found",
+    "getStarted": "Get started by creating your first LeanSpec project.",
+    "searchPlaceholder": "Search projects...",
+    "errors": {
+      "load": "Failed to load projects",
+      "switch": "Failed to switch project",
+      "noProjectSelected": "No project selected. Please select a project first."
+    }
+  },
+  "projectsPage": {
+    "title": "Projects",
+    "machineDescription": "Projects synced from {{machine}}.",
+    "description": "Manage your LeanSpec projects and workspaces."
+  },
+  "machines": {
+    "title": "Machines",
+    "description": "Manage connected Sync Bridge devices.",
+    "available": "Available Machines",
+    "empty": "No machines connected yet.",
+    "switcherLabel": "Select machine",
+    "noSelection": "Select a machine",
+    "projectsCount": "{{count}} projects",
+    "requestExecution": "Request execution",
+    "revoke": "Revoke",
+    "unavailable": "Machine unavailable. Connect the bridge to edit metadata.",
+    "status": {
+      "online": "Online",
+      "offline": "Offline"
+    }
+  },
+  "quickSearch": {
+    "button": "Quick search...",
+    "placeholder": "Search specs by title, number, or tags...",
+    "recentSearches": "Recent Searches",
+    "filterHeading": "Filter by Tag",
+    "filterPrefix": "Filter by:",
+    "open": "Open quick search",
+    "noResults": "No results found",
+    "shortcut": {
+      "modifier": "⌘",
+      "key": "K"
+    }
+  },
+  "projectSwitcher": {
+    "switching": "Switching...",
+    "placeholder": "Select project...",
+    "searchPlaceholder": "Search projects...",
+    "noProject": "No project found."
+  },
+  "keyboardShortcuts": {
+    "title": "Keyboard Shortcuts",
+    "items": {
+      "dashboard": "Go to dashboard (home)",
+      "specs": "Go to specs list",
+      "stats": "Go to stats",
+      "dependencies": "Go to dependencies",
+      "settings": "Go to settings",
+      "search": "Focus search",
+      "quickSearch": "Open quick search",
+      "toggleChat": "Toggle AI chat",
+      "toggleChatSidebar": "Toggle AI chat sidebar",
+      "toggleSessionsPopover": "Toggle sessions popover",
+      "newSession": "Start new session",
+      "focusChatInput": "Focus chat input",
+      "newConversation": "New conversation",
+      "viewHistory": "View history",
+      "closeChatSidebar": "Close chat sidebar"
+    }
+  },
+  "tableOfContents": {
+    "title": "Table of Contents",
+    "open": "Open table of contents",
+    "onThisPage": "On this page"
+  },
+  "subSpecTabs": {
+    "multiSectionTitle": "This spec has multiple sections",
+    "multiSectionDescription": "Use the tabs below to navigate between the main overview and detailed sections."
+  },
+  "colorPicker": {
+    "pickColor": "Pick color",
+    "selectColor": "Select color {{color}}"
+  },
+  "createProject": {
+    "title": "Add Project",
+    "descriptionPicker": "Browse and select the project directory.",
+    "descriptionManual": "Enter the absolute path to your local project directory.",
+    "enterManually": "Enter path manually",
+    "pathLabel": "Project Path",
+    "pathPlaceholder": "/path/to/your/project",
+    "pathHelp": "Select the root directory of your project.",
+    "pathRequired": "Project path is required",
+    "browseFolders": "Browse folders",
+    "action": "Add Project",
+    "adding": "Adding...",
+    "toastSuccess": "Project added successfully",
+    "toastError": "Failed to add project"
+  },
+  "directoryPicker": {
+    "action": "Select This Folder",
+    "parent": "Go to parent directory",
+    "rootAction": "Go to root",
+    "root": "Root",
+    "empty": "Empty directory",
+    "error": "Failed to list directory"
+  },
+  "specSidebar": {
+    "title": "All Specs",
+    "searchPlaceholder": "Search specs...",
+    "empty": "No specs found",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar"
+  },
+  "sessionsSidebar": {
+    "searchPlaceholder": "Search sessions...",
+    "noResults": "No sessions found",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar"
+  },
+  "specsNavSidebar": {
+    "title": "Specifications",
+    "searchPlaceholder": "Search specs...",
+    "clearSearch": "Clear search",
+    "noResults": "No specs found",
+    "filtersLabel": "Filters",
+    "toggleFilters": {
+      "show": "Show filters",
+      "hide": "Hide filters"
+    },
+    "clearFilters": "Clear",
+    "status": "Status",
+    "priority": "Priority",
+    "tags": "Tags",
+    "selected": "selected",
+    "select": {
+      "status": {
+        "label": "Status",
+        "all": "All Status"
+      },
+      "priority": {
+        "label": "Priority",
+        "all": "All Priority"
+      },
+      "tag": {
+        "label": "Tag",
+        "all": "All Tags"
+      }
+    },
+    "badges": {
+      "subSpecs": "+{{count}} files"
+    },
+    "switchToTree": "Switch to Tree",
+    "switchToList": "Switch to List",
+    "showArchived": "Show archived",
+    "hideArchived": "Hide archived",
+    "sort": {
+      "label": "Sort By",
+      "newest": "Newest First",
+      "oldest": "Oldest First",
+      "updated": "Recently Updated",
+      "titleAsc": "Title (A-Z)",
+      "titleDesc": "Title (Z-A)",
+      "priorityHigh": "Priority (High-Low)",
+      "priorityLow": "Priority (Low-High)"
+    },
+    "expandAll": "Expand",
+    "collapseAll": "Collapse",
+    "searchTags": "Search tags...",
+    "noTagsFound": "No tags found"
+  },
+  "specsPage": {
+    "title": "Specifications",
+    "description": "Browse and organize all specifications in your project.",
+    "count": "{{count}} specs",
+    "views": {
+      "list": "List",
+      "board": "Board",
+      "listTooltip": "List view",
+      "boardTooltip": "Board view"
+    },
+    "wideMode": {
+      "enter": "Enter wide mode",
+      "exit": "Exit wide mode"
+    },
+    "searchPlaceholder": "Search titles, content, tags...",
+    "searchHint": "Searches across spec titles, content, and tags",
+    "filters": {
+      "status": "Status",
+      "priority": "Priority",
+      "sort": "Sort by",
+      "statusAll": "All Status",
+      "priorityAll": "All Priority",
+      "groupByParent": "Group by Parent",
+      "withErrors": "With Errors",
+      "showArchived": "Show archived",
+      "hideArchived": "Hide archived",
+      "settings": "Settings",
+      "filteredCount": "{{filtered}} of {{total}} specs",
+      "showingAll": "Showing all {{count}} sessions",
+      "showingFiltered": "Showing {{count}} of {{total}} sessions",
+      "sortOptions": {
+        "id-desc": "Newest First",
+        "id-asc": "Oldest First",
+        "updated-desc": "Recently Updated",
+        "title-asc": "Title (A-Z)",
+        "priority-desc": "Priority (Critical → Low)",
+        "priority-asc": "Priority (Low → Critical)"
+      }
+    },
+    "metadata": {
+      "updated": "Updated {{time}}",
+      "files": "+{{count}} files",
+      "dependencies": "{{count}} deps",
+      "none": "No metadata"
+    },
+    "list": {
+      "empty": "No specs found"
+    },
+    "board": {
+      "dropHere": "Drop here to move specs",
+      "updating": "Updating...",
+      "archivedCollapsed": "Archived"
+    },
+    "toasts": {
+      "statusUpdated": "Moved {{spec}} to {{status}}",
+      "statusError": "Unable to update status. Please try again."
+    },
+    "state": {
+      "errorTitle": "Unable to load specs",
+      "errorDescription": "Please try again or refresh your project.",
+      "noSpecsTitle": "No specs yet",
+      "noSpecsDescription": "We could not find any specs for this project. Add a spec in your LeanSpec workspace, then refresh to see it here.",
+      "noFiltersTitle": "No specs match your filters",
+      "noFiltersDescription": "Try clearing filters or adjusting your search to see more specs."
+    },
+    "buttons": {
+      "refreshList": "Refresh list",
+      "reloadData": "Reload data"
+    }
+  },
+  "specDetail": {
+    "toggleSidebar": "Toggle specs list",
+    "codeBlock": {
+      "label": "Code",
+      "copy": "Copy code",
+      "copyToClipboard": "Copy to clipboard"
+    },
+    "table": {
+      "copyTsv": "Copy as TSV (Excel)",
+      "exportCsv": "Export as CSV",
+      "defaultFileName": "table-export.csv"
+    },
+    "metadata": {
+      "created": "Created",
+      "updated": "Updated",
+      "name": "Name",
+      "assignee": "Assignee",
+      "notAvailable": "Not available",
+      "source": "Source",
+      "viewOnGitHub": "View on GitHub"
+    },
+    "buttons": {
+      "viewTimeline": "View Timeline",
+      "viewDependencies": "View Dependencies",
+      "viewHierarchy": "View Hierarchy",
+      "focus": "Focus",
+      "exitFocus": "Exit focus mode"
+    },
+    "dialogs": {
+      "timelineTitle": "Spec Timeline",
+      "timelineDescription": "Created, updated, and completion milestones.",
+      "dependenciesTitle": "Dependency Graph",
+      "dependenciesDescription": "Precedence requirements and connected specs rendered with automatic layout.",
+      "dependenciesLink": "View in full dependencies page",
+      "hierarchyTitle": "Spec Hierarchy",
+      "hierarchyDescription": "Parent and child specification relationships."
+    },
+    "hierarchy": {
+      "parent": "Parent Spec",
+      "current": "Current Spec",
+      "children": "Child Specs",
+      "noRelationships": "This spec has no parent or child relationships."
+    },
+    "tabs": {
+      "overview": "Overview"
+    },
+    "state": {
+      "loading": "Loading...",
+      "error": "Error loading spec",
+      "unavailableTitle": "Spec unavailable",
+      "unavailableDescription": "This spec could not be found. It may have been moved or deleted."
+    },
+    "dependencies": {
+      "dependsOn": "Depends on",
+      "requiredBy": "Required by"
+    },
+    "children": "Child Specs",
+    "links": {
+      "backToSpecs": "Back to specs",
+      "reportIssue": "Report issue"
+    }
+  },
+  "statsPage": {
+    "title": "Project Statistics",
+    "description": "Comprehensive metrics and insights",
+    "tokenDistribution": {
+      "title": "Token Distribution",
+      "empty": "No token data available yet.",
+      "unknown": "{{count}} specs missing token data",
+      "buckets": {
+        "optimal": "Optimal",
+        "good": "Good",
+        "warning": "Warning",
+        "critical": "Critical"
+      }
+    },
+    "cards": {
+      "total": {
+        "title": "Total Specs",
+        "subtitle": "All specifications"
+      },
+      "completed": {
+        "title": "Completed",
+        "subtitle": "completion rate"
+      },
+      "inProgress": {
+        "title": "In Progress",
+        "subtitle": "Active work"
+      },
+      "planned": {
+        "title": "Planned",
+        "subtitle": "Upcoming work"
+      }
+    },
+    "charts": {
+      "status": {
+        "title": "Status Distribution",
+        "description": "Breakdown of specs by status"
+      },
+      "priority": {
+        "title": "Priority Distribution",
+        "description": "Breakdown of specs by priority"
+      },
+      "creation": {
+        "title": "Creation Trend",
+        "description": "Specs created over time"
+      },
+      "topTags": {
+        "title": "Top Tags",
+        "description": "Most frequently used tags"
+      },
+      "label": "{{name}}: {{value}}"
+    },
+    "state": {
+      "errorTitle": "Unable to load statistics",
+      "errorDescription": "Please try again or refresh your project.",
+      "unknownError": "Unknown error"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Project overview and recent activity",
+    "subtitleWithProject": "{{projectName}} — overview and recent activity",
+    "cards": {
+      "total": "Total Specs",
+      "planned": "Planned",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "completionRate": "{{rate}}% completion rate"
+    },
+    "recentlyAdded": "Recently Added",
+    "plannedSection": "Planned ({{count}})",
+    "inProgressSection": "In Progress ({{count}})",
+    "noPlanned": "No planned specs",
+    "noInProgress": "No specs in progress",
+    "recentActivity": "Recent Activity",
+    "quickActions": "Quick Actions",
+    "viewAllSpecs": "View All Specs",
+    "viewStats": "View Stats",
+    "actionUpdated": "updated",
+    "state": {
+      "errorTitle": "Unable to load dashboard",
+      "errorDescription": "Please refresh or try again."
+    }
+  },
+  "contextPage": {
+    "title": "Project Context",
+    "description": "View project-level context files that inform AI agents and development workflows",
+    "copyAll": "Copy All",
+    "copyAllSuccess": "Copied!",
+    "searchPlaceholder": "Search within context files...",
+    "searchNoMatches": "No matches found for \"{{query}}\"",
+    "summary": {
+      "totalTokens": "{{formattedCount}} total tokens",
+      "contextBudget": "Context budget for AI agents"
+    },
+    "badges": {
+      "matchesSingular": "{{count}} match",
+      "matchesPlural": "{{count}} matches",
+      "matchesFoundSingular": "{{count}} match found",
+      "matchesFoundPlural": "{{count}} matches found",
+      "filesSingular": "{{count}} file",
+      "filesPlural": "{{count}} files",
+      "filesFiltered": "{{count}}/{{total}} files",
+      "tokens": "{{formattedCount}} tokens"
+    },
+    "sections": {
+      "agents": {
+        "title": "Agent Instructions",
+        "description": "System prompts and guidelines for AI agents",
+        "empty": "No agent instructions found",
+        "suggestion": "Create an AGENTS.md file in your project root"
+      },
+      "config": {
+        "title": "Configuration",
+        "description": "LeanSpec project configuration and settings",
+        "empty": "No configuration found",
+        "suggestion": "Run 'leanspec init' to create a config file"
+      },
+      "docs": {
+        "title": "Project Documentation",
+        "description": "README, contributing guidelines, and changelog",
+        "empty": "No project docs found",
+        "suggestion": "Create a README.md file in your project root"
+      }
+    },
+    "emptyState": {
+      "title": "No project context found",
+      "description": "This project doesn't have any context files yet. Context files help AI agents understand your project better.",
+      "suggestion": "Start by creating AGENTS.md or running 'leanspec init'"
+    },
+    "search": {
+      "noMatchesTitle": "No matches found",
+      "noMatchesDescription": "Try a different search term",
+      "noFilesDescription": "No files found in this category"
+    },
+    "viewer": {
+      "modified": "Modified {{date}}",
+      "lines": "{{count}} lines",
+      "viewFull": "View full page",
+      "openInEditor": "Open in VS Code",
+      "copyContent": "Copy content",
+      "tokenStatus": {
+        "optimal": "Optimal",
+        "good": "Good",
+        "large": "Large",
+        "veryLarge": "Very Large"
+      }
+    },
+    "detail": {
+      "back": "Back",
+      "openInEditor": "Open in Editor",
+      "copy": "Copy",
+      "copySuccess": "Copied!",
+      "defaultFileType": "text",
+      "lines": "{{count}} lines",
+      "modified": "Modified {{date}}",
+      "size": "{{size}} KB",
+      "selectFile": "Select a file to view its content"
+    },
+    "errors": {
+      "list": "Failed to load context files",
+      "file": "Failed to load file",
+      "loadFailed": "Unable to load project context",
+      "noProject": "No project selected",
+      "noProjectDescription": "Please select or create a project to view its context files."
+    }
+  },
+  "specTimeline": {
+    "events": {
+      "created": "Created",
+      "inProgress": "In Progress",
+      "complete": "Complete",
+      "archived": "Archived"
+    },
+    "state": {
+      "awaiting": "Awaiting start",
+      "queued": "Queued",
+      "pending": "Pending update"
+    }
+  },
+  "mermaid": {
+    "clickToEnlarge": "Click to enlarge diagram"
+  },
+  "dependencyGraph": {
+    "header": {
+      "title": "Dependency Map",
+      "subtitle": "Explore precedence and connected work",
+      "badge": "React Flow DAG"
+    },
+    "badges": {
+      "current": "Current Spec",
+      "currentSubtitle": "This spec",
+      "dependsOn": "Depends On",
+      "dependsOnSubtitle": "Must complete first",
+      "requiredBy": "Required By",
+      "requiredBySubtitle": "Blocked by this spec"
+    },
+    "statusSubtitles": {
+      "completed": "Completed",
+      "inProgress": "In progress",
+      "plannedBlocking": "Must complete first",
+      "plannedCanProceed": "Can proceed",
+      "archived": "Archived"
+    }
+  },
+  "dependenciesPage": {
+    "title": "Dependencies",
+    "description": "Visualize how specs connect across your project.",
+    "header": {
+      "title": "Dependency Graph",
+      "specTitle": "Dependencies for {{specName}}",
+      "allTitle": "All Dependencies",
+      "countSummary": "{{specs}} specs, {{relationships}} relationships",
+      "summary": {
+        "connected": "{{count}} specs with dependencies",
+        "standalone": "{{count}} standalone",
+        "none": "No dependencies defined"
+      }
+    },
+    "selector": {
+      "placeholder": "Select spec to highlight...",
+      "filterPlaceholder": "Type to filter...",
+      "clearSelection": "Clear selection",
+      "empty": "No specs found"
+    },
+    "filters": {
+      "showStandalone": "Show Standalone ({{count}})",
+      "compact": "Compact",
+      "focusMode": "Focus Mode",
+      "clear": "Clear",
+      "count": "({{count}})"
+    },
+    "view": {
+      "graph": "Graph",
+      "list": "List"
+    },
+    "state": {
+      "loading": "Loading dependencies...",
+      "errorTitle": "Unable to load dependencies",
+      "errorDescription": "Please check your connection and try again."
+    },
+    "empty": {
+      "title": "No dependencies to display",
+      "filters": "No specs match the current filters",
+      "standaloneHint": "Enable \"Show Standalone\" to see specs without dependencies",
+      "noDependencies": "No dependencies yet",
+      "noDependenciesDescription": "Specs are present but no dependency relationships were found. Add depends_on links to see the graph."
+    },
+    "legend": {
+      "dependsOn": "Depends On (arrow shows direction)",
+      "instructions": "Click: select • Double-click: open • Drag to rearrange"
+    },
+    "graph": {
+      "levelTitle": "Level {{depth}}",
+      "levelBadge": "L{{depth}}",
+      "instructions": "Click on a node to view spec details. Use mouse wheel to zoom, drag to pan."
+    },
+    "list": {
+      "specsTitle": "Specs ({{count}})",
+      "relationshipsTitle": "Relationships ({{count}})",
+      "noRelationships": "No relationships yet. Add depends_on or required_by references in your specs to visualize them here.",
+      "dependsOn": "↓ depends on",
+      "requiredBy": "↑ required by"
+    },
+    "actions": {
+      "goToSpecs": "Go to specs"
+    },
+    "sidebar": {
+      "emptyTitle": "Select a spec",
+      "emptyDescription": "Click on a spec to see its dependencies",
+      "openSpec": "Open Spec →",
+      "dependsOnHeading": "Depends On ({{count}})",
+      "requiredByHeading": "Required By ({{count}})",
+      "emptyUpstream": "No upstream dependencies",
+      "emptyDownstream": "No specs depend on this",
+      "depth": {
+        "direct": "Direct",
+        "level": "L{{depth}}"
+      }
+    }
+  },
+  "editors": {
+    "changeStatus": "Change spec status",
+    "statusSuccess": "Status updated",
+    "statusError": "Failed to update status",
+    "draftSkipTitle": "Skip planned stage?",
+    "draftSkipDescription": "This spec is still in draft. Move it to Planned before starting work, or skip planning with force.",
+    "draftSkipPlanned": "Go to Planned",
+    "draftSkipForce": "Skip Anyway",
+    "changePriority": "Change spec priority",
+    "prioritySuccess": "Priority updated",
+    "priorityError": "Failed to update priority",
+    "addTag": "Add new tag",
+    "tagExists": "Tag already exists",
+    "tagsSuccess": "Tags updated",
+    "tagsError": "Failed to update tags",
+    "searchTag": "Search or create tag...",
+    "noTagResults": "No tags found.",
+    "existingTags": "Existing tags",
+    "createSection": "Create new",
+    "createTag": "Create \"{{tag}}\"",
+    "removeTag": "Remove {{tag}} tag"
+  },
+  "tokens": {
+    "tokens": "tokens",
+    "status": "Status: {{status}}",
+    "statusLabels": {
+      "optimal": "Optimal",
+      "good": "Good",
+      "warning": "Warning",
+      "critical": "Critical"
+    },
+    "clickForDetails": "Click for details",
+    "contextEconomy": "Context Economy",
+    "detailedBreakdown": "Detailed breakdown of token usage for this spec.",
+    "composition": "Composition",
+    "proseContent": "Prose & Content",
+    "frontmatter": "Frontmatter",
+    "prose": "Prose",
+    "codeBlocks": "Code Blocks",
+    "checklists": "Checklists",
+    "sectionBreakdown": "Section Breakdown",
+    "performance": {
+      "optimal": "Excellent! This spec is highly efficient for AI context.",
+      "good": "Good size. Well within comfortable limits for most models.",
+      "warning": "Getting large. Consider splitting if functionality grows.",
+      "critical": "Too large. This spec consumes significant context and may degrade AI performance."
+    },
+    "progressThresholds": {
+      "optimal": "Optimal Limit (2k)",
+      "good": "Good Limit (3.5k)"
+    },
+    "progressTicks": {
+      "zero": "0",
+      "twoK": "2k",
+      "threePointFiveK": "3.5k",
+      "fiveKPlus": "5k+"
+    }
+  },
+  "validation": {
+    "status": {
+      "pass": "Validation Passed",
+      "warn": "Validation Warnings",
+      "fail": "Validation Failed"
+    },
+    "passLabel": "Pass",
+    "error": "error",
+    "errors": "errors",
+    "errorsFound": "{{count}} errors found",
+    "validationLabel": "Validation: {{label}}",
+    "clickForDetails": "Click for details",
+    "dialog": {
+      "title": "Validation: {{specName}}",
+      "passTitle": "Spec Validated",
+      "passBody": "This spec meets all LeanSpec quality standards and structure requirements.",
+      "passDescription": "All quality checks passed successfully.",
+      "errorDescription": "Found {{count}} errors that require attention.",
+      "suggestion": "Suggestion:",
+      "line": "Line {{line}}",
+      "loading": "Loading validation details..."
+    }
+  },
+  "desktopMenu": {
+    "close": "Close",
+    "newSpec": {
+      "title": "Create New Spec",
+      "description": "Generate a new spec inside the active project with the LeanSpec CLI.",
+      "slugLabel": "Spec slug",
+      "slugPlaceholder": "e.g. desktop-native-menu",
+      "titleLabel": "Display title (optional)",
+      "titlePlaceholder": "Human-friendly title",
+      "commandLabel": "CLI command",
+      "commandPlaceholder": "Enter a spec slug to preview the command…",
+      "hint": "Run this command inside {{project}} (or your project root) to scaffold the spec files.",
+      "projectFallback": "your project",
+      "copyButton": "Copy command",
+      "copied": "Copied!"
+    },
+    "shortcuts": {
+      "title": "Keyboard Shortcuts",
+      "description": "Native menu entries mirror these shortcuts.",
+      "sections": {
+        "global": "Desktop shell",
+        "view": "View",
+        "help": "Help"
+      },
+      "items": {
+        "toggleWindow": "Toggle desktop window",
+        "quickSwitch": "Open project switcher",
+        "newSpec": "Create new spec",
+        "refreshProjects": "Refresh projects",
+        "toggleSidebar": "Toggle sidebar",
+        "quickFind": "Find in specs",
+        "shortcuts": "Show shortcuts",
+        "docs": "Open documentation"
+      }
+    },
+    "logs": {
+      "title": "Desktop Logs",
+      "description": "Logs stay on your machine. Share them when reporting an issue.",
+      "pathLabel": "Log directory",
+      "pathPlaceholder": "Waiting for the desktop app to provide the log path…",
+      "hint": "You can also choose Help → View Logs from the native menu.",
+      "copyPath": "Copy path",
+      "openButton": "Open log folder"
+    },
+    "about": {
+      "title": "About LeanSpec Desktop",
+      "description": "LeanSpec UI with native integrations for local projects and automation.",
+      "version": "Version",
+      "website": "Website",
+      "support": "Support"
+    }
+  },
+  "filesPage": {
+    "title": "Files",
+    "description": "Browse source code files in your project.",
+    "loading": "Loading files...",
+    "loadingFile": "Loading file...",
+    "emptyDirectory": "This directory is empty.",
+    "selectFile": "Select a file to view its contents.",
+    "binaryFile": "Binary files cannot be displayed.",
+    "fileTooLarge": "File is too large to display (max 1 MB).",
+    "lines": "{{count}} lines",
+    "bytes": "{{size}} bytes",
+    "copyPath": "Copy path",
+    "pathCopied": "Path copied!",
+    "searchPlaceholder": "Search files...",
+    "clearSearch": "Clear search",
+    "noSearchResults": "No files match your search.",
+    "closeTab": "Close tab",
+    "errors": {
+      "loadFailed": "Failed to load directory.",
+      "fileFailed": "Failed to load file."
+    }
+  }
+}

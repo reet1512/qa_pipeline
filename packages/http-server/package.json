@@ -1,0 +1,43 @@
+{
+  "name": "@leanspec/http-server",
+  "version": "0.3.0",
+  "description": "Rust HTTP server for LeanSpec UI",
+  "type": "module",
+  "bin": {
+    "leanspec-http": "./bin/leanspec-http.js"
+  },
+  "scripts": {
+    "dev": "cross-env RUST_BACKTRACE=1 LEANSPEC_DEBUG=1 LEANSPEC_DEV_MODE=1 nodemon --watch ./binaries --ignore '*.js' --ignore '*.json' --delay 1 --exec \"node ./bin/leanspec-http.js -v --no-open\"",
+    "typecheck": "echo 'No TypeScript source to check'"
+  },
+  "keywords": [
+    "leanspec",
+    "http",
+    "server",
+    "api",
+    "rust"
+  ],
+  "author": "Marvin Zhang",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codervisor/leanspec.git",
+    "directory": "packages/http-server"
+  },
+  "homepage": "https://lean-spec.dev",
+  "bugs": {
+    "url": "https://github.com/codervisor/leanspec/issues"
+  },
+  "files": [
+    "bin/",
+    "binaries/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

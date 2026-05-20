@@ -1,0 +1,63 @@
+{
+  "name": "leanspec",
+  "version": "0.3.0",
+  "private": true,
+  "packageManager": "pnpm@10.30.2",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "husky": "^9.1.7",
+    "js-yaml": "^4.1.0",
+    "tsx": "^4.19.2",
+    "turbo": "^2.7.2"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "dev": "turbo run dev --filter=@leanspec/ui --filter=@leanspec/http-server",
+    "dev:watch": "concurrently -n rust,dev -c blue,green \"cargo watch -w rust --ignore 'target/**' -x build -s 'node scripts/copy-rust-binaries.mjs --debug'\" \"pnpm dev\"",
+    "dev:web": "turbo run dev:web --filter=@leanspec/ui",
+    "build": "turbo run build",
+    "build:rust": "cd rust && cargo build && cd .. && node scripts/copy-rust-binaries.mjs --debug",
+    "build:rust:release": "cd rust && cargo build --release && cd .. && node scripts/copy-rust-binaries.mjs",
+    "test": "turbo run test",
+    "test:rust": "cargo test --manifest-path rust/Cargo.toml",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "lint:rust": "cargo clippy --manifest-path rust/Cargo.toml -- -D warnings",
+    "check:rust": "cargo check --manifest-path rust/Cargo.toml",
+    "format": "turbo run format",
+    "format:rust": "cargo fmt --manifest-path rust/Cargo.toml",
+    "format:rust:check": "cargo fmt --manifest-path rust/Cargo.toml -- --check",
+    "clean": "turbo run clean && cargo clean --manifest-path rust/Cargo.toml",
+    "docs:dev": "pnpm --filter docs-site start",
+    "docs:build": "pnpm --filter docs-site build",
+    "pre-push": "pnpm typecheck && pnpm lint:rust",
+    "pre-release": "pnpm build && pnpm typecheck && pnpm test && pnpm lint:rust",
+    "prepare-publish": "tsx scripts/prepare-publish.ts",
+    "restore-packages": "tsx scripts/restore-packages.ts",
+    "sync-versions:node": "tsx scripts/sync-versions.ts",
+    "sync-versions:rust": "tsx scripts/sync-rust-versions.ts",
+    "sync-versions": "tsx scripts/sync-versions.ts && tsx scripts/sync-rust-versions.ts",
+    "validate-binaries": "tsx scripts/validate-platform-binaries.ts",
+    "publish:platforms": "tsx scripts/publish-platform-packages.ts",
+    "publish:main": "tsx scripts/publish-main-packages.ts",
+    "migrate:specs": "tsx scripts/migrate-specs-to-issues.ts",
+    "cli": "node bin/leanspec.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "openai": "^6.38.0",
+    "pdf-parse": "^2.4.5"
+  }
+}

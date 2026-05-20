@@ -1,0 +1,117 @@
+import { createContext, useContext, type ReactNode } from 'react';
+import { useLocalStorage } from '@/library';
+import { useCurrentProject } from '../hooks/useProjectQuery';
+import { useProjectScopedStorage } from '../hooks/useProjectScopedStorage';
+import { useChatThreadMutations, useChatThreads, chatKeys } from '../hooks/useChatQuery';
+import type { ChatThread } from '../lib/chat-api';
+import { useModelsRegistry } from '../lib/use-models-registry';
+import { useQueryClient } from '@tanstack/react-query';
+
+interface ChatContextType {
+  isOpen: boolean;
+  sidebarWidth: number;
+  activeConversationId: string | null;
+  conversations: ChatThread[];
+  showHistory: boolean;
+
+  toggleSidebar: () => void;
+  setSidebarWidth: (width: number) => void;
+  selectConversation: (id: string | null) => void;
+  createConversation: () => Promise<void>;
+  deleteConversation: (id: string) => Promise<void>;
+  toggleHistory: () => void;
+  refreshConversations: () => Promise<void>;
+
+  // Legacy support
+  isChatOpen: boolean;
+  openChat: () => void;
+  closeChat: () => void;
+  toggleChat: () => void;
+}
+
+const ChatContext = createContext<ChatContextType | undefined>(undefined);
+
+export function ChatProvider({ children }: { children: ReactNode }) {
+  const { currentProject } = useCurrentProject();
+  const { defaultSelection } = useModelsRegistry();
+  const queryClient = useQueryClient();
+
+  // Global preferences (same across all projects)
+  const [isOpen, setIsOpen] = useLocalStorage<boolean>('leanspec.chat.isOpen', false);
+  const [sidebarWidth, setSidebarWidth] = useLocalStorage<number>('leanspec.chat.sidebarWidth', 400);
+
+  // Project-scoped preferences (different per project)
+  const [showHistory, setShowHistory] = useProjectScopedStorage<boolean>('leanspec.chat.historyExpanded', false);
+  const [activeConversationId, setActiveConversationId] = useProjectScopedStorage<string | null>('leanspec.chat.activeConversationId', null);
+  const { data: conversations = [] } = useChatThreads(currentProject?.id ?? null);
+  const { createThread, deleteThread } = useChatThreadMutations(currentProject?.id ?? null);
+
+  const toggleSidebar = () => setIsOpen((prev: boolean) => !prev);
+
+  const selectConversation = (id: string | null) => {
+    setActiveConversationId(id);
+  };
+
+  const createConversation = async () => {
+    if (!currentProject?.id || !defaultSelection) return;
+    try {
+      const thread = await createThread({ model: defaultSelection });
+      setActiveConversationId(thread.id);
+    } catch (error) {
+      console.error('Failed to create thread:', error);
+    }
+  };
+
+  const deleteConversation = async (id: string) => {
+    try {
+      await deleteThread(id);
+      if (activeConversationId === id) {
+        setActiveConversationId(null);
+      }
+    } catch (error) {
+      console.error('Failed to delete thread:', error);
+    }
+  };
+
+  const toggleHistory = () => setShowHistory((prev: boolean) => !prev);
+  const refreshConversations = async () => {
+    if (!currentProject?.id) return;
+    await queryClient.invalidateQueries({ queryKey: chatKeys.threads(currentProject.id) });
+  };
+
+  // Legacy compatibility
+  const openChat = () => setIsOpen(true);
+  const closeChat = () => setIsOpen(false);
+
+  return (
+    <ChatContext.Provider value={{
+      isOpen,
+      sidebarWidth,
+      activeConversationId,
+      conversations,
+      showHistory,
+      toggleSidebar,
+      setSidebarWidth,
+      selectConversation,
+      createConversation,
+      deleteConversation,
+      toggleHistory,
+      refreshConversations,
+      // Legacy
+      isChatOpen: isOpen,
+      openChat,
+      closeChat,
+      toggleChat: toggleSidebar
+    }}>
+      {children}
+    </ChatContext.Provider>
+  );
+}
+
+export function useChat() {
+  const context = useContext(ChatContext);
+  if (!context) {
+    throw new Error('useChat must be used within a ChatProvider');
+  }
+  return context;
+}

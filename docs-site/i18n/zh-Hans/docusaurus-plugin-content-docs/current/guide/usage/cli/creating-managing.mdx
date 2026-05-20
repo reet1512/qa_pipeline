@@ -1,0 +1,334 @@
+---
+id: 'creating-managing'
+title: '创建和管理Spec'
+sidebar_position: 1
+---
+# 创建和管理Spec
+
+学习使用 LeanSpec Spec的基本操作：创建、更新、查看和管理Spec生命周期。
+
+## 创建新Spec
+
+### 基本创建
+
+```bash
+lean-spec create my-feature
+```
+
+这会创建一个新Spec，包含：
+- 自动生成的唯一 ID（例如，`042-my-feature`）
+- 初始化的frontmatter（状态：`planned`，创建日期）
+- `specs/042-my-feature/README.md` 中的基本Spec模板
+
+### 交互式创建
+
+```bash
+lean-spec create
+```
+
+不带名称时，您将被交互式提示：
+- Spec名称
+- 可选描述
+- 初始状态（默认为 `planned`）
+
+### 高级选项
+
+```bash
+# 使用初始状态创建
+lean-spec create my-feature --status in-progress
+
+# 使用标签创建
+lean-spec create my-feature --tags api,backend
+
+# 使用优先级创建
+lean-spec create my-feature --priority high
+```
+
+**另见**：[CLI 参考：create](/zh-Hans/docs/reference/cli#lean-spec-create) 获取所有选项
+
+## 更新Spec
+
+### 状态更新
+
+**更新Spec状态**（必需 - 永远不要手动编辑frontmatter）：
+
+```bash
+# 移至进行中
+lean-spec update 042 --status in-progress
+
+# 标记为完成
+lean-spec update 042 --status complete
+
+# 完成后归档
+lean-spec update 042 --status archived
+```
+
+**可用状态**：`planned`、`in-progress`、`complete`、`archived`
+
+### 优先级和标签
+
+```bash
+# 设置优先级
+lean-spec update 042 --priority high
+
+# 添加/更新标签
+lean-spec update 042 --tags api,backend,refactor
+
+# 分配给某人
+lean-spec update 042 --assignee alice
+```
+
+**重要**：始终使用 `lean-spec update` 更新系统管理的字段。手动编辑会损坏元数据。
+
+**另见**：[CLI 参考：update](/zh-Hans/docs/reference/cli#lean-spec-update)
+
+## 查看Spec
+
+### 快速查看
+
+```bash
+# 查看Spec（格式化以便阅读）
+lean-spec view 042
+
+# 查看子 Spec文件
+lean-spec view 042/DESIGN.md
+```
+
+### 原始输出
+
+```bash
+# 获取原始 markdown（用于解析）
+lean-spec view 042 --raw
+
+# 获取结构化 JSON
+lean-spec view 042 --json
+```
+
+### 在编辑器中打开
+
+```bash
+# 在默认编辑器中打开
+lean-spec open 042
+
+# 打开特定子 Spec
+lean-spec open 042/TESTING.md
+```
+
+**另见**：[CLI 参考：view](/zh-Hans/docs/reference/cli#lean-spec-view)
+
+## 列出Spec
+
+### 查看所有Spec
+
+```bash
+# 列出所有Spec
+lean-spec list
+
+# 按状态列出
+lean-spec list --status in-progress
+
+# 按标签列出
+lean-spec list --tag api
+```
+
+### 看板视图
+
+```bash
+# 可视化看板视图
+lean-spec board
+```
+
+显示按状态分组的Spec及项目健康指标。
+
+**另见**：[看板和统计](/zh-Hans/docs/guide/usage/cli/project-management#board-stats)
+
+## 管理Spec文件
+
+### 子 Spec文件
+
+对于复杂Spec，拆分为多个文件：
+
+```bash
+# 列出Spec中的所有文件
+lean-spec files 042
+```
+
+常见子 Spec文件：
+- `README.md` - 主Spec（必需）
+- `DESIGN.md` - 详细设计
+- `IMPLEMENTATION.md` - 实现计划
+- `TESTING.md` - 测试策略
+- `CONFIGURATION.md` - 配置示例
+
+**为什么？**保持每个文件在 400 行以下（上下文经济 (Context Economy)原则）。
+
+**另见**：[子 Spec文件](/zh-Hans/docs/guide/usage/spec-structure#sub-spec-files)
+
+### 查看文件列表
+
+```bash
+# 显示Spec中的所有文件
+lean-spec files 042
+```
+
+输出：
+```
+📄 042-my-feature 中的文件
+
+必需：
+  ✓ README.md        (234 行)  主Spec
+
+文档：
+  ✓ DESIGN.md        (187 行)
+  ✓ TESTING.md       (145 行)
+
+总计：3 个文件，566 行
+```
+
+## 归档Spec
+
+当工作完成并且您想将Spec移出活动视图时：
+
+```bash
+# 归档已完成的Spec
+lean-spec update 042 --status archived
+```
+
+归档的Spec：
+- 不会出现在默认的 `lean-spec list` 中
+- 仍可搜索
+- 以后可以取消归档
+
+## 依赖和关系
+
+### 声明依赖
+
+**硬依赖**（阻塞）：
+```yaml
+# 在Specfrontmatter中（目前必须手动编辑）
+depends_on:
+  - spec-041  # 在此之前必须完成
+```
+
+### 查看依赖
+
+```bash
+# 显示依赖关系图
+lean-spec deps 042
+```
+
+输出：
+```
+042-my-feature 的依赖关系图
+
+依赖于：
+  → 041-authentication [complete]
+
+被需要：
+  ← 043-dashboard [in-progress]
+
+相关Spec：
+  ⟷ 044-api-refactor [planned]
+```
+
+**另见**：[依赖](/zh-Hans/docs/guide/usage/cli/project-management#dependencies)
+
+## 验证
+
+检查Spec结构和frontmatter：
+
+```bash
+# 验证所有Spec
+lean-spec validate
+
+# 验证特定Spec
+lean-spec validate 042
+```
+
+捕获：
+- 无效的frontmatter结构
+- 缺少必需字段
+- 依赖循环
+- Token 计数警告（>5,000 Token 降低 AI 有效性）
+
+**另见**：[验证](/zh-Hans/docs/guide/usage/cli/validation)
+
+## 搜索
+
+通过内容、名称或元数据查找Spec：
+
+```bash
+# 搜索Spec内容
+lean-spec search "authentication"
+
+# 使用过滤器搜索
+lean-spec search "API" --status in-progress --tag backend
+```
+
+**另见**：[查找Spec](/zh-Hans/docs/guide/usage/cli/finding-specs)
+
+## 常见工作流
+
+### 开始新工作
+
+```bash
+# 1. 创建Spec
+lean-spec create auth-refactor --tags security,backend
+
+# 2. 编辑Spec（定义问题、解决方案、成功标准）
+lean-spec open 042
+
+# 3. 准备好时移至进行中
+lean-spec update 042 --status in-progress
+```
+
+### 完成工作
+
+```bash
+# 1. 标记为完成
+lean-spec update 042 --status complete
+
+# 2. 验证一切仍然正常
+lean-spec validate
+
+# 3. 可选：如果不再需要则归档
+lean-spec update 042 --status archived
+```
+
+### 复杂Spec管理
+
+```bash
+# 1. 检查Spec是否变得过大
+lean-spec view 042 --raw | wc -l
+
+# 2. 如果 >400 行，拆分为子 Spec
+# 创建 DESIGN.md、TESTING.md 等
+
+# 3. 验证结构
+lean-spec files 042
+```
+
+## 最佳实践
+
+**要做：**
+- ✅ 使用 `lean-spec update` 更新状态/优先级/标签（永远不要编辑frontmatter）
+- ✅ 保持 README.md 专注（使用子 Spec获取详细信息）
+- ✅ 随着工作进展更新状态
+- ✅ 归档已完成的Spec以减少混乱
+- ✅ 定期验证（`lean-spec validate`）
+
+**不要：**
+- ❌ 手动编辑系统管理的frontmatter（status、priority、tags、assignee、transitions、timestamps）
+- ❌ 让Spec在没有拆分的情况下超过 400 行
+- ❌ 让Spec保持陈旧状态
+- ❌ 在提交前跳过验证
+
+## 下一步
+
+- [查找Spec](/zh-Hans/docs/guide/usage/cli/finding-specs) - 搜索和发现
+- [Spec结构](/zh-Hans/docs/guide/usage/spec-structure) - 理解Spec结构
+- [项目管理](/zh-Hans/docs/guide/usage/cli/project-management#board-stats) - 看板视图和健康跟踪
+
+---
+
+**参考**：[CLI 文档](/zh-Hans/docs/reference/cli) 获取完整命令参考

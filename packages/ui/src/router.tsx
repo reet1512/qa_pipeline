@@ -1,0 +1,58 @@
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { Layout } from './components/layout';
+import { ProjectsPage } from './pages/ProjectsPage';
+import { MachinesPage } from './pages/MachinesPage';
+import { SettingsLayout } from './layouts/SettingsLayout';
+import { ModelsSettingsPage } from './pages/settings/ModelsSettingsPage';
+import { RunnersSettingsPage } from './pages/settings/RunnersSettingsPage';
+import { AppearanceSettingsPage } from './pages/settings/AppearanceSettingsPage';
+import { RootRedirect } from './components/root-redirect';
+import { createProjectRoutes } from './router/projectRoutes';
+
+/**
+ * Router configuration for @leanspec/ui (Vite SPA).
+ *
+ * Layout hierarchy:
+ * - Layout: Navigation + MainSidebar (for all project routes including projects list)
+ *
+ * This nested layout approach ensures:
+ * 1. Navigation bar is always present across all pages
+ * 2. MainSidebar is always visible for consistent navigation
+ * 3. SpecDetailLayout provides SpecsNavSidebar + outlet context
+ */
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootRedirect />,
+  },
+  {
+    path: '/projects',
+    element: <Layout />,
+    children: [{ index: true, element: <ProjectsPage /> }],
+  },
+  {
+    path: '/machines',
+    element: <Layout />,
+    children: [{ index: true, element: <MachinesPage /> }],
+  },
+  {
+    path: '/settings',
+    element: <Layout />,
+    children: [
+      {
+        element: <SettingsLayout />,
+        children: [
+          { index: true, element: <Navigate to="/settings/models" replace /> },
+          { path: 'models', element: <ModelsSettingsPage /> },
+          { path: 'runners', element: <RunnersSettingsPage /> },
+          { path: 'appearance', element: <AppearanceSettingsPage /> },
+        ],
+      },
+    ],
+  },
+  {
+    path: '/projects/:projectId',
+    element: <Layout />,
+    children: createProjectRoutes(),
+  },
+]);

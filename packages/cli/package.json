@@ -1,0 +1,42 @@
+{
+  "name": "@leanspec/cli",
+  "version": "0.3.0",
+  "description": "Specification-driven development made simple",
+  "type": "module",
+  "bin": {
+    "leanspec": "./bin/leanspec.js",
+    "lean-spec": "./bin/lean-spec.js"
+  },
+  "scripts": {
+    "typecheck": "echo 'No TypeScript source to check'"
+  },
+  "keywords": [
+    "spec",
+    "specification",
+    "documentation",
+    "ai",
+    "agent",
+    "sdd"
+  ],
+  "author": "Marvin Zhang",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codervisor/leanspec.git"
+  },
+  "homepage": "https://lean-spec.dev",
+  "bugs": {
+    "url": "https://github.com/codervisor/leanspec/issues"
+  },
+  "files": [
+    "bin/",
+    "binaries/",
+    "templates/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  }
+}

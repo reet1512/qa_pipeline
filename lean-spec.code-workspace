@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"[rust]": {
+			"editor.formatOnSave": true,
+			"editor.defaultFormatter": "rust-lang.rust-analyzer"
+		},
+		"rust-analyzer.linkedProjects": [
+			"./rust/Cargo.toml"
+		],
+		"github-actions.workflows.pinned.workflows": [
+			".github/workflows/publish.yml",
+			".github/workflows/ci.yml"
+		]
+	}
+}

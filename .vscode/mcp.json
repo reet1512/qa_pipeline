@@ -1,0 +1,17 @@
+{
+	"servers": {
+		"leanspec": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"@leanspec/mcp@latest"
+			]
+		},
+		"deepwiki": {
+			"url": "https://mcp.deepwiki.com/mcp",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}

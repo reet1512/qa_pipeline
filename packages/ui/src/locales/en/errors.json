@@ -1,0 +1,34 @@
+{
+  "fileNotFound": "File not found",
+  "specNotFound": "Spec not found",
+  "projectNotFound": "Project not found",
+  "loadingError": "Error loading data",
+  "invalidInput": "Invalid input",
+  "networkError": "Network error",
+  "unknownError": "An unknown error occurred",
+  "permissionDenied": "Permission denied",
+  "operationFailed": "Operation failed",
+  "apiCodes": {
+    "notFound": "Resource not found",
+    "projectNotFound": "Project not found",
+    "specNotFound": "Spec not found",
+    "noProject": "No project selected",
+    "invalidRequest": "Invalid request",
+    "unauthorized": "Unauthorized",
+    "validationFailed": "Validation failed",
+    "databaseError": "Database error",
+    "configError": "Configuration error",
+    "toolNotFound": "Tool not found",
+    "toolError": "Tool execution failed",
+    "internalError": "Internal server error"
+  },
+  "pageError": {
+    "title": "Something went wrong",
+    "description": "The page failed to render."
+  },
+  "mermaid": {
+    "title": "Mermaid diagram error",
+    "renderError": "Failed to render diagram",
+    "loading": "Loading diagram..."
+  }
+}

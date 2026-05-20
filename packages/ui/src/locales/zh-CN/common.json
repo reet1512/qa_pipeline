@@ -1,0 +1,1541 @@
+{
+  "navigation": {
+    "home": "首页",
+    "specs": "规范",
+    "chat": "AI 聊天",
+    "chatDescription": "与 LeanSpec AI 对话",
+    "dependencies": "依赖关系",
+    "stats": "统计",
+    "context": "上下文",
+    "projects": "项目",
+    "manageProjects": "管理项目",
+    "machines": "设备",
+    "manageMachines": "管理设备",
+    "collapse": "收起",
+    "closeMenu": "关闭菜单",
+    "indicators": {
+      "running": "会话运行中",
+      "attention": "会话需要关注",
+      "completedRecent": "会话最近已完成"
+    },
+    "dashboard": "仪表板",
+    "allSpecifications": "所有规范",
+    "sessions": "会话",
+    "sessionsDescription": "监控 AI 会话",
+    "files": "文件",
+    "filesDescription": "浏览项目代码库",
+    "dependencyGraph": "依赖图",
+    "analytics": "数据分析",
+    "projectContext": "项目上下文",
+    "settings": "设置",
+    "settingsDescription": "偏好和配置",
+    "toggleMenu": "切换菜单",
+    "docsTooltip": "查看文档",
+    "githubTooltip": "GitHub 仓库",
+    "logoAlt": "LeanSpec",
+    "githubAlt": "GitHub",
+    "brandName": "LeanSpec",
+    "openMenu": "打开菜单"
+  },
+  "search": {
+    "placeholder": "搜索规范...",
+    "noResults": "未找到结果",
+    "searchSpecs": "搜索规范"
+  },
+  "status": {
+    "draft": "草稿",
+    "planned": "已计划",
+    "inProgress": "进行中",
+    "in-progress": "进行中",
+    "complete": "已完成",
+    "archived": "已归档",
+    "blocked": "阻塞中"
+  },
+  "priority": {
+    "critical": "紧急",
+    "high": "高",
+    "medium": "中",
+    "low": "低",
+    "unknown": "未知"
+  },
+  "actions": {
+    "create": "创建",
+    "update": "更新",
+    "delete": "删除",
+    "add": "添加",
+    "archive": "归档",
+    "view": "查看",
+    "edit": "编辑",
+    "save": "保存",
+    "saving": "保存中...",
+    "cancel": "取消",
+    "close": "关闭",
+    "back": "返回",
+    "clear": "清除",
+    "refresh": "刷新",
+    "retry": "重试",
+    "next": "下一步",
+    "loading": "加载中...",
+    "search": "搜索",
+    "backToTop": "返回顶部",
+    "openSidebar": "打开侧边栏",
+    "validate": "校验",
+    "remove": "移除",
+    "report": "报告",
+    "open": "打开"
+  },
+  "sessions": {
+    "title": "AI 会话",
+    "subtitle": "为该规范运行并监控 AI 编码会话。",
+    "empty": "暂无会话。",
+    "emptyForSpec": "该规范暂无会话",
+    "emptyLogs": "暂无日志记录。",
+    "status": {
+      "pending": "等待中",
+      "running": "运行中",
+      "paused": "已暂停",
+      "completed": "已完成",
+      "failed": "失败",
+      "cancelled": "已取消"
+    },
+    "actions": {
+      "new": "新建会话",
+      "run": "运行会话",
+      "start": "开始",
+      "pause": "暂停",
+      "resume": "继续",
+      "archive": "归档",
+      "stop": "停止",
+      "viewAll": "查看全部",
+      "logs": "查看日志",
+      "view": "查看",
+      "retry": "重试",
+      "export": "导出",
+      "copyId": "复制 ID",
+      "back": "返回会话列表",
+      "restart": "重新启动",
+      "viewSpec": "查看规范",
+      "createAndStart": "创建并启动"
+    },
+    "labels": {
+      "runner": "运行器",
+      "mode": "模式",
+      "model": "模型",
+      "started": "开始时间",
+      "ended": "结束时间",
+      "duration": "持续时间",
+      "status": "状态",
+      "spec": "规范",
+      "specId": "规范 ID",
+      "specIdPlaceholder": "输入规范 ID",
+      "prompt": "初始提示词",
+      "promptPlaceholder": "为 AI 运行器提供的可选指令或上下文",
+      "promptTemplateDefault": "实现以下规范：\n\n{specs}",
+      "promptPreview": "实际发送提示预览",
+      "promptPreviewEmpty": "添加规范或输入自定义提示后可预览发送内容。",
+      "attachSpec": "@ 规范",
+      "noSpec": "未关联规范",
+      "tokens": "令牌",
+      "cost": "预估费用",
+      "costUnknown": "未知",
+      "costApprox": "约 ${{value}}",
+      "unknownTime": "未知",
+      "autoScroll": "自动滚动",
+      "logs": "日志",
+      "plan": "计划",
+      "protocolAcp": "ACP",
+      "protocolCli": "CLI",
+      "activeTool": "工具：{{tool}}",
+      "planProgress": "计划：{{completed}}/{{total}}",
+      "completed": "已完成"
+    },
+    "modes": {
+      "autonomous": "自主",
+      "guided": "引导"
+    },
+    "runners": {
+      "claude": "Claude",
+      "copilot": "GitHub Copilot",
+      "codex": "Codex",
+      "opencode": "OpenCode",
+      "aider": "Aider",
+      "cline": "Cline",
+      "gemini": "Gemini",
+      "cursor": "Cursor",
+      "windsurf": "Windsurf",
+      "droid": "Droid",
+      "kiro": "Kiro",
+      "kimi": "Kimi",
+      "qodo": "Qodo",
+      "amp": "Amp",
+      "trae": "Trae",
+      "qwen-code": "Qwen Code",
+      "goose": "Goose",
+      "openhands": "OpenHands",
+      "continue": "Continue",
+      "crush": "Crush",
+      "roo": "Roo",
+      "codebuddy": "CodeBuddy",
+      "kilo": "Kilo",
+      "augment": "Augment",
+      "antigravity": "Antigravity"
+    },
+    "select": {
+      "placeholder": "选择...",
+      "search": "搜索...",
+      "empty": "未找到结果。"
+    },
+    "export": {
+      "fallbackName": "logs"
+    },
+    "dialogs": {
+      "createTitle": "创建 AI 会话",
+      "createDescription": "选择运行器和模式，然后启动会话。",
+      "logsTitle": "会话日志"
+    },
+    "errors": {
+      "load": "加载会话失败。",
+      "create": "创建会话失败。",
+      "noProjectPath": "当前工作区缺少项目路径。"
+    },
+    "permissions": {
+      "allow_once": "允许一次",
+      "allow_always": "始终允许",
+      "reject": "拒绝",
+      "responding": "正在发送响应..."
+    }
+  },
+  "sessionsPage": {
+    "title": "会话",
+    "description": "跨规范监控 AI 编码会话。",
+    "count": "{{count}} 个会话",
+    "filters": {
+      "search": "按会话、规范或运行器搜索",
+      "status": "状态",
+      "runner": "运行器",
+      "mode": "模式",
+      "spec": "规范"
+    },
+    "sort": {
+      "startedDesc": "开始时间（最新）",
+      "startedAsc": "开始时间（最早）",
+      "durationDesc": "持续时间（最长）",
+      "status": "状态"
+    },
+    "buttons": {
+      "loadMore": "加载更多",
+      "refresh": "刷新列表"
+    },
+    "state": {
+      "errorTitle": "无法加载会话",
+      "emptyTitle": "暂无会话",
+      "emptyDescription": "创建新会话以开始跟踪 AI 运行情况。",
+      "noResultsTitle": "没有匹配的会话",
+      "noResultsDescription": "尝试调整筛选条件或搜索关键词。"
+    },
+    "groups": {
+      "active": "运行中",
+      "today": "今天",
+      "yesterday": "昨天",
+      "older": "更早"
+    },
+    "labels": {
+      "noSpecs": "无 Specs"
+    }
+  },
+  "sessionDetail": {
+    "title": "会话 {{id}}",
+    "description": "实时日志与会话详情。",
+    "eventsTitle": "会话时间线",
+    "eventsDescription": "记录该会话的生命周期事件。",
+    "eventsEmpty": "暂无事件记录。",
+    "archiveSuccess": "已归档到 {{path}}",
+    "archiveError": "归档会话日志失败。",
+    "logsTitle": "实时日志",
+    "logsDescription": "来自该会话的实时输出。",
+    "filters": {
+      "search": "搜索日志",
+      "autoScroll": "自动滚动",
+      "acp": {
+        "messages": "消息",
+        "thoughts": "思考",
+        "tools": "工具调用",
+        "plan": "计划"
+      }
+    },
+    "displayMode": {
+      "messages": "消息",
+      "verbose": "详细"
+    },
+    "actions": {
+      "download": "下载日志文件",
+      "copyLogs": "复制日志到剪贴板"
+    },
+    "state": {
+      "notFoundTitle": "会话不可用",
+      "notFoundDescription": "无法加载该会话。"
+    }
+  },
+  "chat": {
+    "title": "LeanSpec AI 聊天",
+    "subtitle": "在浏览器内用对话管理规范。",
+    "modelLabel": "模型",
+    "clear": "清空",
+    "empty": "可以请求列出、创建、更新或校验规范。",
+    "placeholder": "向 LeanSpec 发出管理规范的请求...",
+    "helper": "示例：“列出所有规范”、“创建限流规范”、“将 082 标记为完成”。",
+    "send": "发送",
+    "thinking": "思考中...",
+    "error": "发生错误，请重试。",
+    "modelError": "模型错误",
+    "searchModels": "搜索模型...",
+    "noModelsFound": "未找到模型",
+    "noKey": "无密钥",
+    "providersSummary": "{{total}} 个提供商，已配置 {{configured}} 个",
+    "availableProvidersSummary": "{{count}} 个可用提供商",
+    "modelsLoadError": "加载模型失败",
+    "autoTitle": {
+      "generating": "正在生成标题..."
+    },
+    "newChat": "新对话",
+    "expandSidebar": "展开侧边栏",
+    "collapseSidebar": "收起侧边栏",
+    "searchPlaceholder": "搜索对话...",
+    "history": {
+      "searchPlaceholder": "搜索历史...",
+      "empty": "未找到对话"
+    },
+    "shortcuts": {
+      "newChat": "新对话 (Cmd+Shift+N)",
+      "history": "历史记录 (Cmd+Shift+H)",
+      "closeSidebar": "关闭 (Cmd+Shift+I)"
+    },
+    "emptyState": {
+      "prompt": "选择一个对话或开始新的对话。"
+    },
+    "noSearchResults": "未找到对话",
+    "noConversations": "暂无对话",
+    "startConversation": "点击“新对话”开始聊天",
+    "noMessagesYet": "暂无消息",
+    "modelSelector": {
+      "selectPlaceholder": "选择模型...",
+      "badges": {
+        "tool": "工具",
+        "reasoning": "推理",
+        "vision": "视觉"
+      },
+      "metrics": {
+        "contextWindow": "上下文窗口",
+        "maxOutput": "最大输出",
+        "inputCost": "输入成本",
+        "outputCost": "输出成本",
+        "vision": "视觉"
+      },
+      "hiddenItem": "隐藏"
+    },
+    "today": "今天",
+    "yesterday": "昨天",
+    "previous7Days": "过去 7 天",
+    "older": "更早",
+    "storageUsage": "已用存储：{{size}}",
+    "storageLocation": "位置：{{path}}",
+    "storageUnavailable": "无法获取存储信息",
+    "storageUnits": {
+      "zero": "0 B",
+      "byte": "B",
+      "kilobyte": "KB",
+      "megabyte": "MB",
+      "gigabyte": "GB",
+      "terabyte": "TB"
+    },
+    "deleteConversation": "删除对话",
+    "renameConversation": "重命名对话",
+    "disabledTitle": "AI 聊天已禁用",
+    "disabledDescription": "设置 VITE_ENABLE_AI=true 以启用聊天功能。",
+    "toggleModelSettings": "切换模型设置",
+    "openChat": "打开 AI 聊天",
+    "openFullChat": "完整聊天",
+    "attachSpec": "@ 规范",
+    "specContextPrefix": "请将以下规范作为上下文：",
+    "toolExecution": {
+      "status": {
+        "failed": "失败",
+        "completed": "已完成",
+        "running": "运行中...",
+        "success": "成功",
+        "error": "错误"
+      },
+      "labels": {
+        "input": "输入",
+        "output": "输出",
+        "error": "错误"
+      },
+      "actions": {
+        "showAll": "显示全部",
+        "showLess": "收起",
+        "copy": "复制"
+      },
+      "tabs": {
+        "input": "输入",
+        "output": "输出"
+      },
+      "viewToggle": {
+        "ui": "界面",
+        "json": "JSON"
+      }
+    },
+    "settings": {
+      "title": "聊天配置",
+      "description": "配置 AI 提供商、模型和聊天行为",
+      "provider": "提供商",
+      "model": "模型",
+      "providers": "AI 提供商",
+      "providersDescription": "管理 OpenAI、Anthropic、Deepseek 和其他 AI 提供商",
+      "models": "模型",
+      "addProvider": "添加提供商",
+      "editProvider": "编辑提供商",
+      "addModel": "添加模型",
+      "editModel": "编辑模型",
+      "default": "默认",
+      "keyConfigured": "已设置 API 密钥",
+      "noKey": "无 API 密钥",
+      "defaults": "默认设置",
+      "defaultsDescription": "配置默认提供商、模型和行为",
+      "defaultProvider": "默认提供商",
+      "defaultModel": "默认模型",
+      "maxSteps": "最大步数",
+      "maxStepsHelp": "工具执行的最大步数 (1-50)",
+      "confirmDeleteProvider": "确定要删除此提供商吗？",
+      "confirmDeleteModel": "确定要删除此模型吗？",
+      "providerDialogDescription": "配置提供商详情和 API 凭证",
+      "modelDialogDescription": "添加或编辑模型信息",
+      "providerId": "提供商 ID",
+      "providerIdHelp": "小写标识符（例如：openai、anthropic）",
+      "providerName": "显示名称",
+      "baseURL": "基础 URL",
+      "baseURLHelp": "可选的自定义 API 端点（用于 OpenRouter 等）",
+      "apiKey": "API 密钥",
+      "apiKeyHelp": "使用 ${ENV_VAR} 表示环境变量或直接粘贴",
+      "modelId": "模型 ID",
+      "modelName": "显示名称",
+      "maxTokens": "最大令牌数",
+      "maxTokensHelp": "上下文窗口大小（可选）",
+      "deleteProviderTitle": "删除提供商",
+      "deleteModelTitle": "删除模型",
+      "placeholders": {
+        "providerId": "openai",
+        "providerName": "OpenAI",
+        "baseUrl": "https://api.openai.com/v1",
+        "apiKeyMasked": "••••••••",
+        "apiKeyEnv": "${OPENAI_API_KEY}",
+        "modelId": "gpt-4o",
+        "modelName": "GPT-4o",
+        "maxTokens": "128000"
+      },
+      "errors": {
+        "loadConfig": "加载配置失败",
+        "saveConfig": "保存配置失败",
+        "loadConfiguration": "加载配置失败",
+        "idRequired": "ID 为必填项",
+        "idExists": "此 ID 已存在",
+        "idInvalid": "ID 只能包含小写字母、数字和连字符",
+        "nameRequired": "名称为必填项",
+        "urlInvalid": "URL 必须以 http:// 或 https:// 开头",
+        "modelIdRequired": "模型 ID 为必填项",
+        "modelIdExists": "此模型 ID 已存在",
+        "modelNameRequired": "模型名称为必填项",
+        "maxTokensInvalid": "最大令牌数必须是数字"
+      }
+    }
+  },
+  "spec": {
+    "spec": "规范",
+    "specs": "规范",
+    "specification": "规范",
+    "specifications": "规范",
+    "title": "标题",
+    "description": "描述",
+    "tags": "标签",
+    "createdAt": "创建时间",
+    "updatedAt": "更新时间",
+    "completedAt": "完成时间"
+  },
+  "specs": {
+    "hierarchy": {
+      "umbrella": "伞形规范",
+      "inParent": "所属：{{parent}}"
+    }
+  },
+  "relationships": {
+    "title": "关系",
+    "description": "管理当前规范的层级与依赖关系。",
+    "button": "关系",
+    "sections": {
+      "hierarchy": "层级",
+      "dependencies": "依赖"
+    },
+    "parent": "父规范",
+    "children": "子规范",
+    "dependsOn": "依赖",
+    "requiredBy": "被依赖",
+    "actions": {
+      "setParent": "设置父规范",
+      "addChild": "添加子规范",
+      "addDependsOn": "添加依赖",
+      "addRequiredBy": "添加被依赖",
+      "viewHierarchy": "在层级中查看",
+      "viewDependencies": "查看依赖图"
+    },
+    "empty": {
+      "parent": "未设置父规范",
+      "children": "暂无子规范",
+      "dependsOn": "暂无依赖",
+      "requiredBy": "暂无被依赖",
+      "noSpecs": "暂无规范"
+    },
+    "confirmRemove": "移除与 {{label}} 的关系？"
+  },
+  "errors": {
+    "unknownError": "未知错误"
+  },
+  "settings": {
+    "title": "设置",
+    "description": "管理你的偏好和配置",
+    "collapseSidebar": "收起侧边栏",
+    "expandSidebar": "展开侧边栏",
+    "tabs": {
+      "models": "模型",
+      "runners": "运行器",
+      "appearance": "外观"
+    },
+    "ai": {
+      "providers": "AI 提供商",
+      "providersDescription": "为 models.dev 注册表中的 AI 提供商配置 API 密钥",
+      "searchPlaceholder": "搜索提供商或模型...",
+      "models": "模型",
+      "addProvider": "添加提供商",
+      "editProvider": "编辑提供商",
+      "addModel": "添加模型",
+      "editModel": "编辑模型",
+      "default": "默认",
+      "keyConfigured": "已配置",
+      "noKey": "无密钥",
+      "defaults": "默认设置",
+      "defaultsDescription": "配置默认提供商、模型和行为",
+      "defaultProvider": "默认提供商",
+      "defaultModel": "默认模型",
+      "selectProvider": "选择提供商",
+      "selectModel": "选择模型",
+      "maxSteps": "最大步数",
+      "maxStepsHelp": "工具执行的最大步数 (1-50)",
+      "providerId": "提供商 ID",
+      "providerIdHelp": "小写标识符（例如：openai、anthropic）",
+      "providerName": "显示名称",
+      "baseURL": "基础 URL",
+      "baseURLHelp": "可选的自定义 API 端点（用于 OpenRouter 等）",
+      "apiKey": "API 密钥",
+      "apiKeyHelp": "使用 ${ENV_VAR} 表示环境变量或直接粘贴",
+      "modelId": "模型 ID",
+      "modelName": "显示名称",
+      "maxTokens": "最大 Token 数",
+      "maxTokensHelp": "上下文窗口大小（可选）",
+      "providerDialogDescription": "配置提供商详情和 API 凭据",
+      "modelDialogDescription": "添加或编辑模型信息",
+      "refreshRegistry": "刷新",
+      "configuredProviders": "已配置的提供商",
+      "availableProviders": "可用的提供商",
+      "agenticModels": "代理模型",
+      "total": "总计",
+      "updateKey": "更新密钥",
+      "configureKey": "配置",
+      "hideModels": "隐藏模型",
+      "showModels": "显示模型",
+      "moreModels": "更多模型",
+      "modelsAvailable": "个可用模型",
+      "capabilities": {
+        "toolCall": "工具调用",
+        "reasoning": "推理",
+        "vision": "视觉"
+      },
+      "customProviders": "自定义提供商",
+      "customProvidersDescription": "添加不在 models.dev 注册表中的提供商",
+      "addCustomProvider": "添加自定义",
+      "noCustomProviders": "无自定义提供商",
+      "custom": "自定义",
+      "configureApiKey": "配置 API 密钥",
+      "clearApiKey": "清除 API 密钥",
+      "configureModels": "配置 {{provider}} 模型",
+      "configureModelsDescription": "选择为此提供商启用的模型",
+      "apiKeyDialogDescription": "输入 {{provider}} 的 API 密钥",
+      "azureApiKeyDialogDescription": "配置 Azure OpenAI 的资源名称和 API 密钥",
+      "azureResourceName": "Azure 资源名称",
+      "azureResourceNameHelp": "您的 Azure OpenAI 资源名称（例如 'my-openai-resource'）",
+      "apiKeyStorageNote": "API 密钥将本地存储在配置文件中",
+      "configureProvider": "配置 {{provider}}",
+      "configureProviderDescription": "配置提供商详情和模型访问权限",
+      "restrictModels": "限制可用模型",
+      "allModelsEnabled": "所有模型均已启用",
+      "allModelsEnabledDesc": "此提供商的所有模型目前均可在聊天中使用。",
+      "enableRestriction": "启用限制",
+      "selectedOf": "已选择，共",
+      "selectAll": "全选",
+      "deselectAll": "取消全选",
+      "restricted": "已限制",
+      "outOfTotal": "，共 {{total}} 个",
+      "placeholders": {
+        "azureResourceName": "my-openai-resource",
+        "apiKeyEnv": "{{provider}}_API_KEY",
+        "apiKeyPrefix": "sk-...",
+        "customProviderId": "my-provider",
+        "customProviderName": "My Provider",
+        "customProviderBaseUrl": "https://api.example.com/v1"
+      },
+      "editCustomProvider": "编辑自定义提供商",
+      "customProviderDialogDescription": "配置自定义提供商的 API 端点和模型",
+      "leaveEmptyToKeep": "留空以保留现有值",
+      "noModelsAdded": "尚未添加模型",
+      "confirmDeleteProvider": "确定要删除此提供商吗？",
+      "builtIn": "内置",
+      "configure": "配置",
+      "setUp": "设置",
+      "setDefault": "设为默认",
+      "discoverModels": "发现模型",
+      "saveAndSetDefault": "保存并设为默认",
+      "sort": {
+        "name": "名称",
+        "models": "模型数量",
+        "configured": "已配置优先"
+      },
+      "modelSort": {
+        "sortBy": "排序方式",
+        "name": "名称",
+        "tokens": "令牌数"
+      },
+      "filters": {
+        "status": "状态",
+        "all": "全部",
+        "configured": "已配置",
+        "unconfigured": "未配置",
+        "showConfiguredOnly": "仅显示已配置",
+        "showUnconfiguredOnly": "仅显示未配置"
+      },
+      "filteredCount": "{{filtered}} / {{total}} 个提供商",
+      "validation": {
+        "revalidateAll": "重新校验全部",
+        "checking": "校验中",
+        "valid": "有效",
+        "invalid": "无效",
+        "lastChecked": "上次校验：{{time}}"
+      },
+      "details": {
+        "title": "详情",
+        "providerId": "提供商 ID",
+        "baseUrl": "基础 URL",
+        "modelCount": "{{count}} 个模型（{{agentic}} 个代理）"
+      },
+      "toasts": {
+        "defaultProvider": "默认提供商已设置为 {{provider}}",
+        "apiKeySaved": "API 密钥已保存",
+        "apiKeyCleared": "API 密钥已清除",
+        "modelsSaved": "模型偏好已保存"
+      },
+      "errors": {
+        "loadConfig": "加载配置失败",
+        "refreshFailed": "刷新失败",
+        "setApiKeyFailed": "设置 API 密钥失败",
+        "saveConfigFailed": "保存配置失败",
+        "saveFailed": "保存失败",
+        "idRequired": "ID 是必需的",
+        "idExists": "此 ID 已存在",
+        "idInvalid": "ID 只能包含小写字母、数字和连字符",
+        "nameRequired": "名称是必需的",
+        "urlInvalid": "URL 必须以 http:// 或 https:// 开头",
+        "modelIdRequired": "模型 ID 是必需的",
+        "modelIdExists": "此模型 ID 已存在",
+        "modelNameRequired": "模型名称是必需的",
+        "maxTokensInvalid": "最大 Token 数必须是数字",
+        "apiKeyRequired": "API 密钥是必需的",
+        "azureResourceNameRequired": "Azure 资源名称是必需的",
+        "modelsRequired": "至少需要一个模型"
+      }
+    },
+    "runners": {
+      "title": "AI 运行器",
+      "description": "管理 AI 会话使用的本地运行器命令",
+      "addRunner": "添加运行器",
+      "editRunner": "编辑运行器",
+      "default": "默认",
+      "available": "可用",
+      "unavailable": "未找到",
+      "ideOnly": "仅 IDE",
+      "ideOnlyCommand": "仅 IDE（无法从 CLI 运行）",
+      "setDefault": "设为默认",
+      "empty": "暂无配置的运行器。",
+      "dialogDescription": "配置运行器命令、参数与环境变量",
+      "confirmDelete": "删除运行器 \"{{id}}\"？",
+      "validation": {
+        "revalidateAll": "重新校验全部",
+        "checking": "校验中",
+        "valid": "有效",
+        "invalid": "无效",
+        "lastChecked": "上次校验：{{time}}"
+      },
+      "details": {
+        "title": "详情",
+        "id": "运行器 ID",
+        "source": "来源：{{source}}",
+        "version": "版本",
+        "notFound": "在 PATH 中未找到命令"
+      },
+      "toasts": {
+        "defaultRunner": "默认运行器已设置为 {{runner}}"
+      },
+      "fields": {
+        "id": "运行器 ID",
+        "idHelp": "小写标识符（例如：claude、copilot）",
+        "name": "显示名称",
+        "command": "命令",
+        "args": "参数",
+        "argsHelp": "每行一个参数",
+        "defaultModel": "默认模型",
+        "modelProviders": "模型提供商",
+        "modelProvidersHelp": "每行一个 models.dev 提供商 ID（例如 openai、anthropic、google）",
+        "env": "环境变量",
+        "envHelp": "每行一个 KEY=VALUE"
+      },
+      "placeholders": {
+        "id": "claude",
+        "name": "Claude Code",
+        "command": "claude",
+        "args": "--dangerously-skip-permissions\n--print",
+        "defaultModel": "claude-3-7-sonnet",
+        "searchOrTypeModel": "搜索或输入模型...",
+        "modelProviders": "anthropic\nopenai",
+        "env": "ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}"
+      },
+      "errors": {
+        "noProject": "需要项目路径才能管理运行器。",
+        "loadFailed": "加载运行器失败。",
+        "saveFailed": "保存运行器失败。",
+        "deleteFailed": "删除运行器失败。",
+        "validateFailed": "校验运行器失败。",
+        "defaultFailed": "设置默认运行器失败。",
+        "idRequired": "ID 为必填项",
+        "idExists": "此 ID 已存在",
+        "idInvalid": "ID 只能包含小写字母、数字和连字符",
+        "commandRequired": "命令为必填项",
+        "envInvalid": "每行环境变量必须为 KEY=VALUE"
+      },
+      "customModel": "自定义",
+      "useCustomModel": "使用 \"{{model}}\"",
+      "clearModel": "清除模型",
+      "noModelsFound": "输入模型名称",
+      "searchPlaceholder": "搜索运行器...",
+      "noResults": "没有符合筛选条件的运行器",
+      "sort": {
+        "name": "名称",
+        "available": "可用优先"
+      },
+      "filters": {
+        "status": "状态",
+        "showUnavailable": "显示不可用",
+        "showIdeRunners": "显示 IDE 运行器",
+        "source": "来源",
+        "allSources": "全部来源",
+        "builtin": "内置",
+        "custom": "自定义"
+      },
+      "filteredCount": "{{filtered}} / {{total}} 个运行器"
+    },
+    "appearance": {
+      "theme": "主题",
+      "themeDescription": "选择 LeanSpec 的外观",
+      "light": "浅色",
+      "lightDescription": "经典浅色主题",
+      "dark": "深色",
+      "darkDescription": "柔和护眼",
+      "system": "跟随系统",
+      "systemDescription": "匹配系统偏好",
+      "displayMode": "显示模式",
+      "displayModeDescription": "选择布局宽度",
+      "normal": "标准",
+      "normalDescription": "居中最大宽度",
+      "wide": "宽屏",
+      "wideDescription": "全宽显示",
+      "language": "语言",
+      "languageDescription": "选择你的首选语言",
+      "selectLanguage": "选择语言"
+    }
+  },
+  "theme": {
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统",
+    "toggleTheme": "切换主题"
+  },
+  "wideMode": {
+    "toggle": "切换布局模式",
+    "normal": "标准",
+    "wide": "宽屏"
+  },
+  "language": {
+    "english": "English",
+    "chinese": "中文",
+    "changeLanguage": "切换语言"
+  },
+  "projects": {
+    "project": "项目",
+    "projects": "项目",
+    "switchProject": "切换项目",
+    "createProject": "创建项目",
+    "manageProjects": "管理项目",
+    "selectProject": "选择项目",
+    "description": "管理你的 LeanSpec 工作区。",
+    "colorLabel": "颜色",
+    "validationFailed": "校验失败",
+    "newProject": "新建项目",
+    "backTo": "返回 {{projectName}}",
+    "rename": "重命名",
+    "projectColor": "项目颜色",
+    "favorite": "收藏",
+    "unfavorite": "取消收藏",
+    "validatePath": "校验路径",
+    "specs": "规范数",
+    "completion": "完成度",
+    "local": "本地",
+    "noProjectsFound": "未找到项目",
+    "getStarted": "开始创建您的第一个 LeanSpec 项目。",
+    "searchPlaceholder": "搜索项目...",
+    "errors": {
+      "load": "无法加载项目",
+      "switch": "无法切换项目",
+      "noProjectSelected": "未选择项目，请先选择或创建一个项目。"
+    }
+  },
+  "projectsPage": {
+    "title": "项目",
+    "machineDescription": "来自 {{machine}} 的同步项目。",
+    "description": "管理你的 LeanSpec 工作区。"
+  },
+  "machines": {
+    "title": "设备",
+    "description": "管理已连接的 Sync Bridge 设备。",
+    "available": "可用设备",
+    "empty": "暂时没有已连接的设备。",
+    "switcherLabel": "选择设备",
+    "noSelection": "请选择设备",
+    "projectsCount": "{{count}} 个项目",
+    "requestExecution": "请求执行",
+    "revoke": "撤销",
+    "unavailable": "设备不可用。请连接 Sync Bridge 后再编辑元数据。",
+    "status": {
+      "online": "在线",
+      "offline": "离线"
+    }
+  },
+  "quickSearch": {
+    "button": "快速搜索...",
+    "placeholder": "按标题、编号或标签搜索规范...",
+    "recentSearches": "最近搜索",
+    "filterHeading": "按标签筛选",
+    "filterPrefix": "筛选：",
+    "open": "打开快速搜索",
+    "noResults": "未找到结果",
+    "shortcut": {
+      "modifier": "⌘",
+      "key": "K"
+    }
+  },
+  "projectSwitcher": {
+    "switching": "正在切换...",
+    "placeholder": "选择项目...",
+    "searchPlaceholder": "搜索项目...",
+    "noProject": "未找到项目。"
+  },
+  "keyboardShortcuts": {
+    "title": "键盘快捷键",
+    "items": {
+      "dashboard": "跳转到仪表板（首页）",
+      "specs": "跳转到规范列表",
+      "stats": "跳转到统计",
+      "dependencies": "跳转到依赖",
+      "settings": "跳转到设置",
+      "search": "聚焦搜索框",
+      "quickSearch": "打开快速搜索",
+      "toggleChat": "切换 AI 聊天",
+      "toggleChatSidebar": "切换 AI 聊天侧边栏",
+      "toggleSessionsPopover": "切换会话弹出层",
+      "newSession": "新建会话",
+      "focusChatInput": "聚焦聊天输入框",
+      "newConversation": "新建对话",
+      "viewHistory": "查看历史记录",
+      "closeChatSidebar": "关闭聊天侧边栏"
+    }
+  },
+  "tableOfContents": {
+    "title": "目录",
+    "open": "打开目录",
+    "onThisPage": "页面导航"
+  },
+  "subSpecTabs": {
+    "multiSectionTitle": "此规范包含多个章节",
+    "multiSectionDescription": "使用下方标签切换概览和详细章节。"
+  },
+  "colorPicker": {
+    "pickColor": "选择颜色",
+    "selectColor": "选择颜色 {{color}}"
+  },
+  "createProject": {
+    "title": "添加项目",
+    "descriptionPicker": "浏览并选择项目目录。",
+    "descriptionManual": "请输入本地项目目录的绝对路径。",
+    "enterManually": "手动输入路径",
+    "pathLabel": "项目路径",
+    "pathPlaceholder": "/path/to/your/project",
+    "pathHelp": "选择项目根目录。",
+    "pathRequired": "项目路径为必填项",
+    "browseFolders": "浏览文件夹",
+    "action": "添加项目",
+    "adding": "正在添加...",
+    "toastSuccess": "项目添加成功",
+    "toastError": "无法添加项目"
+  },
+  "directoryPicker": {
+    "action": "选择此文件夹",
+    "parent": "返回上级目录",
+    "rootAction": "返回根目录",
+    "root": "根目录",
+    "empty": "空目录",
+    "error": "无法列出目录"
+  },
+  "specSidebar": {
+    "title": "全部规范",
+    "searchPlaceholder": "搜索规范...",
+    "empty": "没有匹配的规范",
+    "collapse": "收起侧边栏",
+    "expand": "展开侧边栏"
+  },
+  "sessionsSidebar": {
+    "searchPlaceholder": "搜索会话...",
+    "noResults": "没有匹配的会话",
+    "collapse": "收起侧边栏",
+    "expand": "展开侧边栏"
+  },
+  "specsNavSidebar": {
+    "title": "规范列表",
+    "searchPlaceholder": "搜索规范...",
+    "clearSearch": "清除搜索",
+    "noResults": "没有匹配的规范",
+    "filtersLabel": "筛选",
+    "toggleFilters": {
+      "show": "展开筛选",
+      "hide": "收起筛选"
+    },
+    "clearFilters": "重置",
+    "status": "状态",
+    "priority": "优先级",
+    "tags": "标签",
+    "selected": "已选",
+    "select": {
+      "status": {
+        "label": "状态",
+        "all": "全部状态"
+      },
+      "priority": {
+        "label": "优先级",
+        "all": "全部优先级"
+      },
+      "tag": {
+        "label": "标签",
+        "all": "全部标签"
+      }
+    },
+    "badges": {
+      "subSpecs": "+{{count}} 个文件"
+    },
+    "switchToTree": "切换到树形视图",
+    "switchToList": "切换到列表视图",
+    "showArchived": "显示已归档",
+    "hideArchived": "隐藏已归档",
+    "sort": {
+      "label": "排序",
+      "newest": "最新优先",
+      "oldest": "最早优先",
+      "updated": "最近更新",
+      "titleAsc": "标题 (A-Z)",
+      "titleDesc": "标题 (Z-A)",
+      "priorityHigh": "优先级（高→低）",
+      "priorityLow": "优先级（低→高）"
+    },
+    "expandAll": "展开全部",
+    "collapseAll": "折叠全部",
+    "searchTags": "搜索标签...",
+    "noTagsFound": "未找到标签"
+  },
+  "specsPage": {
+    "title": "规范列表",
+    "description": "浏览并管理项目中的所有规范。",
+    "count": "共 {{count}} 个规范",
+    "views": {
+      "list": "列表",
+      "board": "看板",
+      "listTooltip": "列表视图",
+      "boardTooltip": "看板视图"
+    },
+    "wideMode": {
+      "enter": "进入宽屏模式",
+      "exit": "退出宽屏模式"
+    },
+    "searchPlaceholder": "搜索标题、内容、标签...",
+    "searchHint": "在规范标题、内容和标签中搜索",
+    "filters": {
+      "status": "状态",
+      "priority": "优先级",
+      "sort": "排序",
+      "statusAll": "全部状态",
+      "priorityAll": "全部优先级",
+      "groupByParent": "按父级分组",
+      "withErrors": "有校验错误",
+      "showArchived": "显示已归档",
+      "hideArchived": "隐藏已归档",
+      "settings": "设置",
+      "filteredCount": "{{filtered}} / {{total}} 个规范",
+      "showingAll": "显示全部 {{count}} 个会话",
+      "showingFiltered": "显示 {{count}} / {{total}} 个会话",
+      "sortOptions": {
+        "id-desc": "最新优先",
+        "id-asc": "最早优先",
+        "updated-desc": "最近更新",
+        "title-asc": "标题 (A-Z)",
+        "priority-desc": "优先级（紧急 → 低）",
+        "priority-asc": "优先级（低 → 紧急）"
+      }
+    },
+    "metadata": {
+      "updated": "更新于 {{time}}",
+      "files": "+{{count}} 个文件",
+      "dependencies": "{{count}} 个依赖",
+      "none": "暂无元信息"
+    },
+    "list": {
+      "empty": "没有匹配的规范"
+    },
+    "board": {
+      "dropHere": "拖放到此移动规范",
+      "updating": "正在更新...",
+      "archivedCollapsed": "已归档"
+    },
+    "toasts": {
+      "statusUpdated": "已将 {{spec}} 移动到 {{status}}",
+      "statusError": "无法更新状态，请稍后重试。"
+    },
+    "state": {
+      "errorTitle": "无法加载规范",
+      "errorDescription": "请重试或刷新项目。",
+      "noSpecsTitle": "暂无规范",
+      "noSpecsDescription": "未找到任何规范。请在 LeanSpec 工作区添加后刷新。",
+      "noFiltersTitle": "没有匹配当前筛选条件的规范",
+      "noFiltersDescription": "尝试清除筛选条件或调整搜索。"
+    },
+    "buttons": {
+      "refreshList": "刷新列表",
+      "reloadData": "重新加载"
+    }
+  },
+  "specDetail": {
+    "toggleSidebar": "展开或收起规范列表",
+    "codeBlock": {
+      "label": "代码",
+      "copy": "复制代码",
+      "copyToClipboard": "复制到剪贴板"
+    },
+    "table": {
+      "copyTsv": "复制为 TSV（Excel）",
+      "exportCsv": "导出为 CSV",
+      "defaultFileName": "table-export.csv"
+    },
+    "metadata": {
+      "created": "创建时间",
+      "updated": "更新时间",
+      "name": "名称",
+      "assignee": "责任人",
+      "notAvailable": "暂无",
+      "source": "来源",
+      "viewOnGitHub": "在 GitHub 查看"
+    },
+    "buttons": {
+      "viewTimeline": "查看时间线",
+      "viewDependencies": "查看依赖",
+      "viewHierarchy": "查看层级",
+      "focus": "专注模式",
+      "exitFocus": "退出专注模式"
+    },
+    "dialogs": {
+      "timelineTitle": "规范时间线",
+      "timelineDescription": "查看创建、更新和完成节点。",
+      "dependenciesTitle": "依赖关系图",
+      "dependenciesDescription": "展示前置关系与关联规范。",
+      "dependenciesLink": "在依赖页面中查看",
+      "hierarchyTitle": "规范层级",
+      "hierarchyDescription": "父子规范的层级关系。"
+    },
+    "hierarchy": {
+      "parent": "父规范",
+      "current": "当前规范",
+      "children": "子规范",
+      "noRelationships": "此规范没有父子层级关系。"
+    },
+    "tabs": {
+      "overview": "概览"
+    },
+    "state": {
+      "loading": "正在加载...",
+      "error": "无法加载规范",
+      "unavailableTitle": "规范无法访问",
+      "unavailableDescription": "无法找到该规范，可能已被移动或删除。"
+    },
+    "dependencies": {
+      "dependsOn": "依赖",
+      "requiredBy": "被依赖"
+    },
+    "links": {
+      "backToSpecs": "返回规范列表",
+      "reportIssue": "报告问题"
+    }
+  },
+  "statsPage": {
+    "title": "项目统计",
+    "description": "查看项目的整体指标与洞察",
+    "tokenDistribution": {
+      "title": "Token 分布",
+      "empty": "暂无 Token 数据。",
+      "unknown": "{{count}} 个规范缺少 Token 数据",
+      "buckets": {
+        "optimal": "最佳",
+        "good": "良好",
+        "warning": "偏大",
+        "critical": "严重"
+      }
+    },
+    "cards": {
+      "total": {
+        "title": "规范总数",
+        "subtitle": "全部规范"
+      },
+      "completed": {
+        "title": "已完成",
+        "subtitle": "完成率"
+      },
+      "inProgress": {
+        "title": "进行中",
+        "subtitle": "活跃中的工作"
+      },
+      "planned": {
+        "title": "已计划",
+        "subtitle": "即将开始的工作"
+      }
+    },
+    "charts": {
+      "status": {
+        "title": "状态分布",
+        "description": "按状态划分的规范数量"
+      },
+      "priority": {
+        "title": "优先级分布",
+        "description": "按优先级划分的规范数量"
+      },
+      "creation": {
+        "title": "创建趋势",
+        "description": "最近新建的规范数量走势"
+      },
+      "topTags": {
+        "title": "热门标签",
+        "description": "使用最频繁的标签"
+      },
+      "label": "{{name}}：{{value}}"
+    },
+    "state": {
+      "errorTitle": "无法加载统计数据",
+      "errorDescription": "请重试或刷新项目。",
+      "unknownError": "未知错误"
+    }
+  },
+  "dashboard": {
+    "title": "仪表板",
+    "subtitle": "项目概览与近期活动",
+    "subtitleWithProject": "{{projectName}} — 概览与近期活动",
+    "cards": {
+      "total": "规范总数",
+      "planned": "已计划",
+      "inProgress": "进行中",
+      "completed": "已完成",
+      "completionRate": "{{rate}}% 完成率"
+    },
+    "recentlyAdded": "最近添加",
+    "plannedSection": "已计划 ({{count}})",
+    "inProgressSection": "进行中 ({{count}})",
+    "noPlanned": "暂无已计划的规范",
+    "noInProgress": "暂无进行中的规范",
+    "recentActivity": "最近活动",
+    "quickActions": "快捷操作",
+    "viewAllSpecs": "查看所有规范",
+    "viewStats": "查看统计",
+    "actionUpdated": "已更新",
+    "state": {
+      "errorTitle": "无法加载仪表板",
+      "errorDescription": "请刷新页面或稍后再试。"
+    }
+  },
+  "contextPage": {
+    "title": "项目上下文",
+    "description": "查看驱动 AI 工具与开发流程的项目级上下文文件",
+    "copyAll": "复制全部",
+    "copyAllSuccess": "已复制！",
+    "searchPlaceholder": "在上下文文件中搜索...",
+    "searchNoMatches": "没有找到包含「{{query}}」的内容",
+    "summary": {
+      "totalTokens": "共 {{formattedCount}} 个 Token",
+      "contextBudget": "用于 AI 工具的上下文预算"
+    },
+    "badges": {
+      "matchesSingular": "{{count}} 个匹配",
+      "matchesPlural": "{{count}} 个匹配",
+      "matchesFoundSingular": "找到 {{count}} 个匹配",
+      "matchesFoundPlural": "找到 {{count}} 个匹配",
+      "filesSingular": "{{count}} 个文件",
+      "filesPlural": "{{count}} 个文件",
+      "filesFiltered": "{{count}}/{{total}} 个文件",
+      "tokens": "{{formattedCount}} 个 Token"
+    },
+    "sections": {
+      "agents": {
+        "title": "Agent 指令",
+        "description": "提供给 AI Agent 的系统提示与使用指南",
+        "empty": "当前没有 Agent 指令",
+        "suggestion": "在项目根目录创建 AGENTS.md"
+      },
+      "config": {
+        "title": "配置",
+        "description": "LeanSpec 项目配置与设置",
+        "empty": "没有找到配置文件",
+        "suggestion": "运行 'leanspec init' 生成配置文件"
+      },
+      "docs": {
+        "title": "项目文档",
+        "description": "README、贡献指南与变更日志",
+        "empty": "没有找到项目文档",
+        "suggestion": "在项目根目录创建 README.md"
+      }
+    },
+    "emptyState": {
+      "title": "未检测到项目上下文",
+      "description": "该项目暂未配置任何上下文文件，AI Agent 无法了解项目背景。",
+      "suggestion": "先创建 AGENTS.md 或执行 'leanspec init'"
+    },
+    "search": {
+      "noMatchesTitle": "未找到匹配项",
+      "noMatchesDescription": "试试其他关键词",
+      "noFilesDescription": "该分类下没有文件"
+    },
+    "viewer": {
+      "modified": "更新于 {{date}}",
+      "lines": "{{count}} 行",
+      "viewFull": "查看全页",
+      "openInEditor": "在 VS Code 中打开",
+      "copyContent": "复制内容",
+      "tokenStatus": {
+        "optimal": "最佳",
+        "good": "良好",
+        "large": "偏大",
+        "veryLarge": "非常大"
+      }
+    },
+    "detail": {
+      "back": "返回",
+      "openInEditor": "在编辑器中打开",
+      "copy": "复制",
+      "copySuccess": "已复制！",
+      "defaultFileType": "文本",
+      "lines": "{{count}} 行",
+      "modified": "更新于 {{date}}",
+      "size": "大小 {{size}} KB",
+      "selectFile": "选择文件以查看内容"
+    },
+    "errors": {
+      "list": "无法加载上下文文件",
+      "file": "无法加载文件",
+      "loadFailed": "无法加载项目上下文",
+      "noProject": "未选择项目",
+      "noProjectDescription": "请选择或创建一个项目以查看其上下文文件。"
+    }
+  },
+  "specTimeline": {
+    "events": {
+      "created": "创建",
+      "inProgress": "进行中",
+      "complete": "已完成",
+      "archived": "已归档"
+    },
+    "state": {
+      "awaiting": "等待开始",
+      "queued": "排队中",
+      "pending": "等待更新"
+    }
+  },
+  "mermaid": {
+    "clickToEnlarge": "点击放大图表"
+  },
+  "dependencyGraph": {
+    "header": {
+      "title": "依赖地图",
+      "subtitle": "探索前置工作与关联项",
+      "badge": "React Flow DAG"
+    },
+    "badges": {
+      "current": "当前规范",
+      "currentSubtitle": "本规范",
+      "dependsOn": "依赖",
+      "dependsOnSubtitle": "必须先完成",
+      "requiredBy": "被依赖",
+      "requiredBySubtitle": "受此规范阻塞"
+    },
+    "statusSubtitles": {
+      "completed": "已完成",
+      "inProgress": "进行中",
+      "plannedBlocking": "必须先完成",
+      "plannedCanProceed": "可以继续",
+      "archived": "已归档"
+    }
+  },
+  "dependenciesPage": {
+    "title": "依赖关系",
+    "description": "可视化项目内规范的关联关系。",
+    "header": {
+      "title": "依赖关系图",
+      "specTitle": "{{specName}} 的依赖",
+      "allTitle": "所有依赖",
+      "countSummary": "{{specs}} 个规范，{{relationships}} 条关系",
+      "summary": {
+        "connected": "{{count}} 个规范存在依赖",
+        "standalone": "{{count}} 个独立项",
+        "none": "暂未配置依赖关系"
+      }
+    },
+    "selector": {
+      "placeholder": "选择要高亮的规范...",
+      "filterPlaceholder": "输入以筛选...",
+      "clearSelection": "清除选择",
+      "empty": "没有匹配的规范"
+    },
+    "filters": {
+      "showStandalone": "显示独立项 ({{count}})",
+      "compact": "紧凑视图",
+      "focusMode": "焦点模式",
+      "clear": "重置",
+      "count": "({{count}})"
+    },
+    "view": {
+      "graph": "图",
+      "list": "列表"
+    },
+    "state": {
+      "loading": "正在加载依赖...",
+      "errorTitle": "无法加载依赖",
+      "errorDescription": "请检查网络后重试。"
+    },
+    "empty": {
+      "title": "暂无依赖可显示",
+      "filters": "没有规范满足当前筛选条件",
+      "standaloneHint": "开启「显示独立项」即可查看未建立依赖的规范",
+      "noDependencies": "暂无依赖",
+      "noDependenciesDescription": "找到了规范，但尚未设置依赖关系。添加 depends_on 以查看依赖图。"
+    },
+    "legend": {
+      "dependsOn": "依赖方向（箭头表示指向）",
+      "instructions": "点击：选中 • 双击：打开 • 拖动：重新布局"
+    },
+    "graph": {
+      "levelTitle": "第 {{depth}} 层",
+      "levelBadge": "L{{depth}}",
+      "instructions": "单击节点查看详情；滚轮缩放，拖拽平移。"
+    },
+    "list": {
+      "specsTitle": "规范列表 ({{count}})",
+      "relationshipsTitle": "关系 ({{count}})",
+      "noRelationships": "尚无依赖或被依赖关系。添加 depends_on 或 required_by 来可视化。",
+      "dependsOn": "↓ 依赖",
+      "requiredBy": "↑ 被依赖"
+    },
+    "actions": {
+      "goToSpecs": "前往规范列表"
+    },
+    "sidebar": {
+      "emptyTitle": "请选择一个规范",
+      "emptyDescription": "点击节点即可查看它的依赖关系",
+      "openSpec": "打开规范 →",
+      "dependsOnHeading": "上游依赖 ({{count}})",
+      "requiredByHeading": "下游被依赖 ({{count}})",
+      "emptyUpstream": "没有上游依赖",
+      "emptyDownstream": "没有下游依赖此规范",
+      "depth": {
+        "direct": "直接关系",
+        "level": "第 {{depth}} 层"
+      }
+    }
+  },
+  "editors": {
+    "changeStatus": "修改规范状态",
+    "statusSuccess": "状态已更新",
+    "statusError": "无法更新状态",
+    "draftSkipTitle": "跳过已计划阶段？",
+    "draftSkipDescription": "该规范仍处于草稿阶段。建议先移至已计划再开始工作，或强制跳过规划。",
+    "draftSkipPlanned": "先移至已计划",
+    "draftSkipForce": "仍然跳过",
+    "changePriority": "修改规范优先级",
+    "prioritySuccess": "优先级已更新",
+    "priorityError": "无法更新优先级",
+    "addTag": "新增标签",
+    "tagExists": "该标签已存在",
+    "tagsSuccess": "标签已更新",
+    "tagsError": "无法更新标签",
+    "searchTag": "搜索或创建标签...",
+    "noTagResults": "没有可用的标签。",
+    "existingTags": "已有标签",
+    "createSection": "创建新标签",
+    "createTag": "创建「{{tag}}」",
+    "removeTag": "移除 {{tag}} 标签"
+  },
+  "tokens": {
+    "tokens": "个令牌",
+    "status": "状态: {{status}}",
+    "statusLabels": {
+      "optimal": "最佳",
+      "good": "良好",
+      "warning": "警告",
+      "critical": "严重"
+    },
+    "clickForDetails": "点击查看详情",
+    "contextEconomy": "上下文效率",
+    "detailedBreakdown": "该规范的令牌使用详情。",
+    "composition": "组成结构",
+    "proseContent": "正文内容",
+    "frontmatter": "元数据",
+    "prose": "正文",
+    "codeBlocks": "代码块",
+    "checklists": "清单项",
+    "sectionBreakdown": "分区详情",
+    "performance": {
+      "optimal": "非常好！该规范对 AI 上下文非常高效。",
+      "good": "良好大小。在大多数模型的舒适范围内。",
+      "warning": "偏大。如果功能继续增长，建议考虑拆分。",
+      "critical": "过大。该规范消耗大量上下文，可能影响 AI 性能。"
+    },
+    "progressThresholds": {
+      "optimal": "最佳限制 (2k)",
+      "good": "良好限制 (3.5k)"
+    },
+    "progressTicks": {
+      "zero": "0",
+      "twoK": "2k",
+      "threePointFiveK": "3.5k",
+      "fiveKPlus": "5k+"
+    }
+  },
+  "validation": {
+    "status": {
+      "pass": "校验通过",
+      "warn": "校验警告",
+      "fail": "校验失败"
+    },
+    "passLabel": "通过",
+    "error": "个错误",
+    "errors": "个错误",
+    "errorsFound": "发现 {{count}} 个错误",
+    "validationLabel": "校验: {{label}}",
+    "clickForDetails": "点击查看详情",
+    "dialog": {
+      "title": "校验: {{specName}}",
+      "passTitle": "规范已通过校验",
+      "passBody": "该规范符合 LeanSpec 质量标准与结构要求。",
+      "passDescription": "所有质量检查均已通过。",
+      "errorDescription": "发现 {{count}} 个需要关注的错误。",
+      "suggestion": "建议：",
+      "line": "第 {{line}} 行",
+      "loading": "正在加载校验详情..."
+    }
+  },
+  "desktopMenu": {
+    "close": "关闭",
+    "newSpec": {
+      "title": "创建新规范",
+      "description": "通过 LeanSpec CLI 在当前项目中生成新的规范。",
+      "slugLabel": "Spec slug",
+      "slugPlaceholder": "例如 desktop-native-menu",
+      "titleLabel": "显示标题（可选）",
+      "titlePlaceholder": "便于识别的标题",
+      "commandLabel": "CLI 命令",
+      "commandPlaceholder": "输入 Spec slug 即可预览命令…",
+      "hint": "在 {{project}}（或项目根目录）执行该命令即可生成规范文件。",
+      "projectFallback": "项目根目录",
+      "copyButton": "复制命令",
+      "copied": "已复制"
+    },
+    "shortcuts": {
+      "title": "键盘快捷键",
+      "description": "原生菜单与这些快捷键保持同步。",
+      "sections": {
+        "global": "桌面外壳",
+        "view": "视图",
+        "help": "帮助"
+      },
+      "items": {
+        "toggleWindow": "显示/隐藏桌面窗口",
+        "quickSwitch": "打开项目切换器",
+        "newSpec": "创建新规范",
+        "refreshProjects": "刷新项目",
+        "toggleSidebar": "切换侧边栏",
+        "quickFind": "查找规范",
+        "shortcuts": "显示快捷键",
+        "docs": "打开文档"
+      }
+    },
+    "logs": {
+      "title": "桌面日志",
+      "description": "日志仅保存在本机，报告问题时可以分享。",
+      "pathLabel": "日志目录",
+      "pathPlaceholder": "正在等待桌面应用返回日志路径…",
+      "hint": "也可以在原生菜单中选择 Help → View Logs。",
+      "copyPath": "复制路径",
+      "openButton": "打开日志文件夹"
+    },
+    "about": {
+      "title": "关于 LeanSpec Desktop",
+      "description": "LeanSpec UI + 原生集成，专为多项目与自动化场景打造。",
+      "version": "版本",
+      "website": "网站",
+      "support": "支持"
+    }
+  },
+  "filesPage": {
+    "title": "文件",
+    "description": "浏览项目源代码文件。",
+    "loading": "加载文件中...",
+    "loadingFile": "加载文件内容...",
+    "emptyDirectory": "此目录为空。",
+    "selectFile": "选择文件以查看其内容。",
+    "binaryFile": "无法显示二进制文件。",
+    "fileTooLarge": "文件过大，无法显示（最大 1 MB）。",
+    "lines": "{{count}} 行",
+    "bytes": "{{size}} 字节",
+    "copyPath": "复制路径",
+    "pathCopied": "路径已复制！",
+    "searchPlaceholder": "搜索文件...",
+    "clearSearch": "清除搜索",
+    "noSearchResults": "没有匹配的文件。",
+    "closeTab": "关闭标签",
+    "errors": {
+      "loadFailed": "加载目录失败。",
+      "fileFailed": "加载文件失败。"
+    }
+  }
+}

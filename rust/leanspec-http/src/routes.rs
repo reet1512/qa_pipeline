@@ -1,0 +1,350 @@
+//! Router configuration
+//!
+//! Sets up all API routes with the Axum router.
+
+use axum::{
+    body::Body,
+    extract::State,
+    http::{Method, Request, StatusCode},
+    middleware::Next,
+    response::{IntoResponse, Response},
+};
+use axum::{
+    middleware as axum_mw,
+    routing::{delete, get, patch, post},
+    Router,
+};
+use std::path::PathBuf;
+use tower_http::cors::{Any, CorsLayer};
+use tower_http::services::{ServeDir, ServeFile};
+use tower_http::trace::{DefaultOnRequest, DefaultOnResponse, TraceLayer};
+use tracing::Level;
+
+use crate::config::ServerConfig;
+use crate::handlers;
+use crate::middleware;
+use crate::state::AppState;
+
+/// Create the application router with all routes
+pub fn create_router(state: AppState) -> Router {
+    // Build CORS layer from config
+    let cors = if state.config.server.cors.enabled {
+        let origins: Vec<_> = state
+            .config
+            .server
+            .cors
+            .origins
+            .iter()
+            .filter_map(|o| o.parse().ok())
+            .collect();
+
+        if origins.is_empty() {
+            CorsLayer::new()
+                .allow_origin(Any)
+                .allow_methods(Any)
+                .allow_headers(Any)
+        } else {
+            CorsLayer::new()
+                .allow_origin(origins)
+                .allow_methods(Any)
+                .allow_headers(Any)
+        }
+    } else {
+        CorsLayer::new()
+    };
+
+    let router = Router::new()
+        // Health endpoints
+        .route("/health", get(handlers::health_check))
+        .route("/health/live", get(handlers::health_live))
+        .route("/health/ready", get(handlers::health_ready))
+        // Server capabilities
+        .route("/api/capabilities", get(handlers::get_capabilities))
+        // Adapter capabilities (per-project)
+        .route(
+            "/api/projects/{id}/adapter",
+            get(handlers::get_project_adapter_capabilities),
+        )
+        // Active adapter schema (per-project)
+        .route(
+            "/api/projects/{id}/schema",
+            get(handlers::get_project_schema),
+        )
+        // Force a re-resolution of the project's adapter schema, flushing
+        // the shared cache so the next reads see live backend values.
+        .route(
+            "/api/projects/{id}/schema/refresh",
+            post(handlers::refresh_project_schema),
+        )
+        // Project routes
+        .route("/api/projects", get(handlers::list_projects))
+        .route("/api/projects", post(handlers::add_project))
+        .route("/api/projects/refresh", post(handlers::refresh_projects))
+        .route("/api/projects/{id}", get(handlers::get_project))
+        .route("/api/projects/{id}", patch(handlers::update_project))
+        .route("/api/projects/{id}", delete(handlers::remove_project))
+        .route(
+            "/api/projects/{id}/favorite",
+            post(handlers::toggle_favorite),
+        )
+        .route(
+            "/api/projects/{id}/specs",
+            get(handlers::list_project_specs),
+        )
+        .route(
+            "/api/projects/{id}/specs",
+            post(handlers::create_project_spec),
+        )
+        .route(
+            "/api/projects/{id}/specs/{spec}",
+            get(handlers::get_project_spec),
+        )
+        .route(
+            "/api/projects/{id}/specs/{spec}/tokens",
+            get(handlers::get_project_spec_tokens),
+        )
+        .route(
+            "/api/projects/{id}/specs/{spec}/validation",
+            get(handlers::get_project_spec_validation),
+        )
+        .route(
+            "/api/projects/{id}/specs/batch-metadata",
+            post(handlers::batch_spec_metadata),
+        )
+        .route(
+            "/api/projects/{id}/specs/{spec}/raw",
+            get(handlers::get_project_spec_raw),
+        )
+        .route(
+            "/api/projects/{id}/specs/{spec}/raw",
+            patch(handlers::update_project_spec_raw),
+        )
+        .route(
+            "/api/projects/{id}/specs/{spec}/checklist-toggle",
+            post(handlers::toggle_project_spec_checklist),
+        )
+        .route(
+            "/api/projects/{id}/specs/{spec}/subspecs/{file}/raw",
+            get(handlers::get_project_subspec_raw),
+        )
+        .route(
+            "/api/projects/{id}/specs/{spec}/subspecs/{file}/raw",
+            patch(handlers::update_project_subspec_raw),
+        )
+        .route(
+            "/api/projects/{id}/dependencies",
+            get(handlers::get_project_dependencies),
+        )
+        .route("/api/projects/{id}/stats", get(handlers::get_project_stats))
+        .route(
+            "/api/projects/{id}/validate",
+            post(handlers::validate_project),
+        )
+        .route(
+            "/api/projects/{id}/context",
+            get(handlers::get_project_context),
+        )
+        .route(
+            "/api/projects/{id}/search",
+            post(handlers::search_project_specs),
+        )
+        .route(
+            "/api/projects/{id}/specs/{spec}/metadata",
+            patch(handlers::update_project_metadata),
+        )
+        // File browsing routes (codebase viewer)
+        .route(
+            "/api/projects/{id}/files",
+            get(handlers::list_project_files),
+        )
+        .route(
+            "/api/projects/{id}/files/search",
+            get(handlers::search_project_files),
+        )
+        .route("/api/projects/{id}/file", get(handlers::read_project_file))
+        // Spec events (SSE)
+        .route("/api/events/specs", get(handlers::spec_events))
+        // Git integration routes (clone-based, works with any git host)
+        .route("/api/git/detect", post(handlers::git_detect_specs))
+        .route("/api/git/import", post(handlers::git_import_repo))
+        .route("/api/git/sync/{id}", post(handlers::git_sync_project))
+        .route("/api/git/push/{id}", post(handlers::git_push_project))
+        .route("/api/git/status/{id}", get(handlers::git_status_project))
+        // Local project routes
+        .route(
+            "/api/local-projects/discover",
+            post(handlers::discover_projects),
+        )
+        .route(
+            "/api/local-projects/list-directory",
+            post(handlers::list_directory),
+        );
+
+    let mut router = router.with_state(state.clone());
+
+    if let Some(ui_dist) = resolve_ui_dist_path(&state.config) {
+        let index_path = ui_dist.join("index.html");
+        let serve_dir = ServeDir::new(ui_dist).not_found_service(ServeFile::new(index_path));
+        router = router.fallback_service(serve_dir);
+    }
+
+    router
+        // Add middleware
+        .layer(cors)
+        .layer(
+            TraceLayer::new_for_http()
+                .make_span_with(|request: &Request<Body>| {
+                    let method = request.method();
+                    let uri = request.uri();
+                    let request_id = uuid::Uuid::new_v4().to_string();
+
+                    tracing::info_span!(
+                        "http_request",
+                        method = %method,
+                        uri = %uri,
+                        request_id = %request_id,
+                        status = tracing::field::Empty,
+                        latency_ms = tracing::field::Empty,
+                    )
+                })
+                .on_request(DefaultOnRequest::new().level(Level::DEBUG))
+                .on_response(
+                    DefaultOnResponse::new()
+                        .level(Level::INFO)
+                        .latency_unit(tower_http::LatencyUnit::Millis)
+                        .include_headers(true),
+                )
+                .on_failure(
+                    |error: tower_http::classify::ServerErrorsFailureClass,
+                     latency: std::time::Duration,
+                     _span: &tracing::Span| {
+                        tracing::error!(
+                            latency_ms = latency.as_millis(),
+                            error = %error,
+                            "Request failed"
+                        );
+                    },
+                ),
+        )
+        .layer(axum_mw::from_fn(middleware::api_key_auth))
+        .layer(axum_mw::from_fn_with_state(state, readonly_guard))
+        .layer(axum_mw::from_fn(log_error_body))
+}
+
+fn resolve_ui_dist_path(config: &ServerConfig) -> Option<PathBuf> {
+    if let Some(path) = config.server.ui_dist.clone() {
+        if path.exists() {
+            return Some(path);
+        }
+    }
+
+    if let Ok(path) = std::env::var("LEANSPEC_UI_DIST") {
+        let path = PathBuf::from(path);
+        if path.exists() {
+            return Some(path);
+        }
+    }
+
+    // Skip UI serving in dev mode (for hot reload via Vite)
+    if std::env::var("LEANSPEC_DEV_MODE").is_ok() {
+        return None;
+    }
+
+    if cfg!(debug_assertions) {
+        let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../packages/ui/dist");
+        if path.exists() {
+            return Some(path);
+        }
+    }
+
+    if let Ok(exe_path) = std::env::current_exe() {
+        if let Some(exe_dir) = exe_path.parent() {
+            let bundled = exe_dir.join("ui-dist");
+            if bundled.exists() {
+                return Some(bundled);
+            }
+
+            if let Some(scope_dir) = exe_dir.parent() {
+                let scoped_ui = scope_dir.join("ui").join("dist");
+                if scoped_ui.exists() {
+                    return Some(scoped_ui);
+                }
+            }
+        }
+    }
+
+    None
+}
+
+/// Middleware that logs the response body for error responses (4xx/5xx).
+async fn log_error_body(req: Request<Body>, next: Next) -> Response {
+    let method = req.method().clone();
+    let uri = req.uri().clone();
+    let response = next.run(req).await;
+    let status = response.status();
+
+    if status.is_server_error() || status.is_client_error() {
+        let (parts, body) = response.into_parts();
+        let bytes = axum::body::to_bytes(body, 64 * 1024)
+            .await
+            .unwrap_or_default();
+        let body_str = String::from_utf8_lossy(&bytes);
+
+        if status.is_server_error() {
+            tracing::error!(
+                method = %method,
+                uri = %uri,
+                status = %status.as_u16(),
+                body = %body_str,
+                "Error response"
+            );
+        } else {
+            tracing::debug!(
+                method = %method,
+                uri = %uri,
+                status = %status.as_u16(),
+                body = %body_str,
+                "Client error response"
+            );
+        }
+
+        return Response::from_parts(parts, Body::from(bytes));
+    }
+
+    response
+}
+
+async fn readonly_guard(
+    State(state): State<AppState>,
+    request: Request<Body>,
+    next: axum_mw::Next,
+) -> Response {
+    if !state.config.security.readonly {
+        return next.run(request).await;
+    }
+
+    let method = request.method();
+    let path = request.uri().path();
+
+    let is_safe_method = matches!(*method, Method::GET | Method::HEAD | Method::OPTIONS);
+
+    if path.starts_with("/api") && !is_safe_method {
+        return (StatusCode::FORBIDDEN, "Server is in read-only mode").into_response();
+    }
+
+    next.run(request).await
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::config::ServerConfig;
+
+    #[tokio::test]
+    async fn test_router_creation() {
+        let config = ServerConfig::default();
+        let _state =
+            AppState::with_registry(config, crate::project_registry::ProjectRegistry::default())
+                .await;
+    }
+}

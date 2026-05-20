@@ -1,0 +1,46 @@
+#!/bin/sh
+# Run full validation before pushing
+
+echo "🔍 Running Node.js/TypeScript checks..."
+
+echo "  → TypeScript typecheck..."
+pnpm typecheck
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript typecheck failed! Fix the errors before pushing."
+  exit 1
+fi
+
+echo "  → Running tests..."
+pnpm test
+if [ $? -ne 0 ]; then
+  echo "❌ Node.js tests failed! Fix the failing tests before pushing."
+  exit 1
+fi
+
+echo "✅ Node.js/TypeScript checks passed!"
+
+echo ""
+echo "🦀 Running Rust checks..."
+
+echo "  → Clippy lints..."
+cargo clippy --manifest-path rust/Cargo.toml -- -D warnings
+if [ $? -ne 0 ]; then
+  echo "❌ Clippy checks failed! Fix the warnings before pushing."
+  exit 1
+fi
+
+echo "✅ Rust checks passed!"
+
+echo ""
+echo "🔗 Verifying generated TypeScript bindings are up-to-date..."
+cargo test export_bindings -p leanspec-http --manifest-path rust/Cargo.toml 2>/dev/null
+if ! git diff --quiet -- packages/ui/src/types/generated; then
+  echo "❌ Generated TypeScript bindings are out of date!"
+  echo "   Run: cd rust && cargo test export_bindings -p leanspec-http"
+  echo "   Then commit the updated files in packages/ui/src/types/generated/"
+  exit 1
+fi
+echo "✅ Generated bindings are up-to-date!"
+
+echo ""
+echo "🎉 All pre-push checks passed!"

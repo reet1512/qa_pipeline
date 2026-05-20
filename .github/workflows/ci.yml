@@ -1,0 +1,150 @@
+name: CI
+
+on:
+  # Disabled during the migration/transition/pivot — re-enable push/pull_request
+  # triggers once the codebase is stable and CI passes reliably again.
+  workflow_dispatch:
+
+jobs:
+  # Node.js/TypeScript build and test
+  node:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+      
+      - name: Build all packages
+        run: pnpm build
+      
+      - name: Run typecheck
+        run: pnpm typecheck
+      
+      - name: Run tests
+        run: pnpm test
+      
+      - name: Upload UI build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-dist
+          path: packages/ui/dist
+          retention-days: 1
+
+  # Rust build and test
+  rust:
+    needs: node  # Ensure UI is built first
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-registry-
+      
+      - name: Cache cargo index
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-cargo-index-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-index-
+      
+      - name: Check formatting
+        working-directory: rust
+        run: cargo fmt -- --check
+      
+      - name: Run clippy
+        working-directory: rust
+        run: cargo clippy -- -D warnings
+      
+      - name: Setup Node.js for UI build
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      
+      - name: Download UI build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ui-dist
+          path: packages/ui/dist
+      
+      - name: Build binaries
+        working-directory: rust
+        run: cargo build --release
+      
+      - name: Run tests
+        working-directory: rust
+        run: cargo test
+
+      - name: Export TypeScript bindings
+        working-directory: rust
+        run: cargo test export_bindings -p leanspec-http
+
+      - name: Verify generated TypeScript bindings are committed
+        run: git diff --exit-code -- packages/ui/src/types/generated
+      
+      - name: Copy Rust binaries (includes UI dist)
+        run: node scripts/copy-rust-binaries.mjs
+      
+      - name: Validate specs
+        run: node bin/leanspec.js validate --warnings-only
+
+  # specs/ is a frozen historical snapshot — see AGENTS.md.
+  # New specs must go on GitHub Issues; this job blocks accidental drift.
+  freeze-specs:
+    name: specs/ freeze guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Block new additions / modifications under specs/
+        run: |
+          git fetch --depth=50 origin main || true
+          added_or_mod=$(git diff --name-only --diff-filter=AM origin/main...HEAD -- specs/ \
+            | grep -v '^specs/FROZEN\.md$' || true)
+          if [ -n "$added_or_mod" ]; then
+            echo "::error::specs/ is a frozen historical snapshot. New specs must go on GitHub Issues (codervisor/leanspec)."
+            printf '%s\n' "$added_or_mod"
+            exit 1
+          fi
+          echo "✓ no new entries under specs/"

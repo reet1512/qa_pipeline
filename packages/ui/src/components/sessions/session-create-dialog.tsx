@@ -1,0 +1,416 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  Alert,
+  AlertDescription,
+  Badge,
+  Button,
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  PromptInput,
+  PromptInputBody,
+  PromptInputFooter,
+  PromptInputSelect,
+  PromptInputSelectContent,
+  PromptInputSelectItem,
+  PromptInputSelectTrigger,
+  PromptInputSelectValue,
+  PromptInputSubmit,
+  PromptInputTextarea,
+  cn,
+} from '@/library';
+import { useTranslation } from 'react-i18next';
+import type { Session, SessionMode, Spec, RunnerDefinition } from '../../types/api';
+import { api } from '../../lib/api';
+import { SpecContextTrigger, SpecContextChips } from '../spec-context-attachments';
+import { RunnerLogo } from '../library/ai-elements/runner-logo';
+import { sessionModeConfig } from '../../lib/session-utils';
+import { useSessionCreatePreferencesStore } from '../../stores/session-create-preferences';
+import { Check, ChevronDown, Plus, X } from 'lucide-react';
+
+const MODES: SessionMode[] = ['guided', 'autonomous'];
+
+interface SessionCreateDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  projectPath?: string | null;
+  defaultSpecId?: string | null;
+  onCreated?: (session: Session) => void;
+}
+
+export function SessionCreateDialog({
+  open,
+  onOpenChange,
+  projectPath,
+  defaultSpecId,
+  onCreated,
+}: SessionCreateDialogProps) {
+  const { t } = useTranslation('common');
+  const [runnerDefs, setRunnerDefs] = useState<RunnerDefinition[]>([]);
+  const [runner, setRunner] = useState('');
+  const [runnerLoading, setRunnerLoading] = useState(false);
+  const [model, setModel] = useState('');
+  const [mode, setMode] = useState<SessionMode>('autonomous');
+  const [selectedSpecIds, setSelectedSpecIds] = useState<string[]>(defaultSpecId ? [defaultSpecId] : []);
+  const [promptTemplate, setPromptTemplate] = useState('');
+  const [specs, setSpecs] = useState<Spec[]>([]);
+  const [fetchedModels, setFetchedModels] = useState<string[]>([]);
+  const [modelOpen, setModelOpen] = useState(false);
+  const [modelSearch, setModelSearch] = useState('');
+  const [creating, setCreating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const { getModelForRunner, setModelForRunner } = useSessionCreatePreferencesStore();
+  const [prevModelFetchKey, setPrevModelFetchKey] = useState('');
+
+  // Reset model state during render when runner/project changes (getDerivedStateFromProps pattern)
+  const modelFetchKey = `${runner}:${projectPath ?? ''}:${runnerDefs.length}`;
+  if (modelFetchKey !== prevModelFetchKey) {
+    setPrevModelFetchKey(modelFetchKey);
+    setFetchedModels([]);
+    setModel('');
+  }
+
+  const canCreate = Boolean(projectPath);
+
+  /** Get display label for a runner */
+  const getRunnerLabel = useCallback(
+    (runnerId: string) => {
+      const key = `sessions.runners.${runnerId}` as const;
+      const translated = t(key);
+      // If i18n returns the key itself, fall back to the runner definition name or the id
+      if (translated === key || translated === `sessions.runners.${runnerId}`) {
+        const def = runnerDefs.find((r) => r.id === runnerId);
+        return def?.name ?? runnerId;
+      }
+      return translated;
+    },
+    [t, runnerDefs],
+  );
+
+  useEffect(() => {
+    setSelectedSpecIds(defaultSpecId ? [defaultSpecId] : []);
+  }, [defaultSpecId]);
+
+  useEffect(() => {
+    if (!open) return;
+    setError(null);
+    const loadRunners = async () => {
+      try {
+        setRunnerLoading(true);
+        const resp = await api.listRunners(projectPath ?? undefined);
+        const candidates = (resp.runners ?? []).filter((r) => Boolean(r.command) && r.available !== false);
+        const defs = candidates.sort((a, b) => {
+          if (resp.default && a.id === resp.default) return -1;
+          if (resp.default && b.id === resp.default) return 1;
+          const left = a.name ?? a.id;
+          const right = b.name ?? b.id;
+          return left.localeCompare(right);
+        });
+        setRunnerDefs(defs);
+        const defaultId =
+          defs.find((def) => def.id === resp.default)?.id ?? defs[0]?.id ?? '';
+        setRunner(defaultId);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : t('settings.runners.errors.loadFailed'));
+        setRunnerDefs([]);
+      } finally {
+        setRunnerLoading(false);
+      }
+    };
+    const loadSpecs = async () => {
+      try {
+        const data = await api.getSpecs();
+        setSpecs(data);
+      } catch {
+        // Best-effort; spec picker will be empty
+      }
+    };
+    void loadRunners();
+    void loadSpecs();
+  }, [open, projectPath, t]);
+
+  useEffect(() => {
+    const selected = runnerDefs.find((def) => def.id === runner);
+    // If the runner has model providers configured, fetch models from registry
+    if (selected?.modelProviders?.length && selected.id) {
+      let cancelled = false;
+      api.getRunnerModels(selected.id, projectPath ?? undefined).then((resp) => {
+        if (cancelled) return;
+        const models = resp.models ?? [];
+        setFetchedModels(models);
+        if (models.length) {
+          const stored = getModelForRunner(selected!.id);
+          const preferred = stored && models.includes(stored) ? stored : (selected?.model ?? models[0] ?? '');
+          setModel(preferred);
+        }
+      }).catch(() => {
+        // Best-effort; model selector will be hidden
+      });
+      return () => { cancelled = true; };
+    }
+  }, [runner, runnerDefs, projectPath, getModelForRunner]);
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+    setError(null);
+    setTimeout(() => inputRef.current?.focus(), 50);
+  }, [open]);
+
+  const handleModelChange = useCallback((newModel: string) => {
+    setModel(newModel);
+    if (runner && newModel) {
+      setModelForRunner(runner, newModel);
+    }
+  }, [runner, setModelForRunner]);
+
+  const runCreate = useCallback(async () => {
+    if (!projectPath) return;
+    setCreating(true);
+    setError(null);
+    try {
+      const created = await api.createSession({
+        projectPath,
+        specIds: selectedSpecIds,
+        prompt: promptTemplate.trim() || null,
+        runner,
+        mode,
+        model: model || undefined,
+      });
+      // Start the runtime in the background — the server returns immediately
+      // and the session transitions from Pending to Running asynchronously.
+      void api.startSession(created.id);
+      onCreated?.(created);
+      onOpenChange(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('sessions.errors.create'));
+      throw err;
+    } finally {
+      setCreating(false);
+    }
+  }, [projectPath, selectedSpecIds, promptTemplate, runner, mode, model, onCreated, onOpenChange, t]);
+
+  const runnerModels = fetchedModels;
+
+  if (!open) {
+    return null;
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center bg-background/60 px-4 pt-20 backdrop-blur-sm"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onOpenChange(false);
+        }
+      }}
+    >
+      <div className="w-[min(860px,96vw)] rounded-xl border bg-background shadow-2xl">
+        <div className="flex items-center justify-between border-b px-4 py-3">
+          <div>
+            <h2 className="text-sm font-semibold">{t('sessions.dialogs.createTitle')}</h2>
+            <p className="text-xs text-muted-foreground">{t('sessions.dialogs.createDescription')}</p>
+          </div>
+          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onOpenChange(false)}>
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+
+        <div className="space-y-3 p-4">
+          {error && (
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          <div>
+            <SpecContextChips
+              specs={specs}
+              selectedSpecIds={selectedSpecIds}
+              onSelectedSpecIdsChange={setSelectedSpecIds}
+              className="pb-2"
+            />
+          </div>
+
+          <PromptInput onSubmit={() => void runCreate()}>
+            <PromptInputBody>
+              <PromptInputTextarea
+                ref={inputRef}
+                value={promptTemplate}
+                onChange={(e) => setPromptTemplate(e.target.value)}
+                placeholder={t('sessions.labels.promptPlaceholder')}
+                disabled={creating}
+                className="min-h-28"
+              />
+            </PromptInputBody>
+
+            <PromptInputFooter>
+              <div className="flex flex-wrap items-center gap-2">
+                <SpecContextTrigger
+                  specs={specs}
+                  selectedSpecIds={selectedSpecIds}
+                  onSelectedSpecIdsChange={setSelectedSpecIds}
+                  searchPlaceholder={t('sessions.select.search')}
+                  emptyLabel={t('sessions.select.empty')}
+                  triggerLabel={t('sessions.labels.attachSpec')}
+                />
+
+                {runnerDefs.length > 0 && (
+                  <PromptInputSelect value={runner} onValueChange={setRunner}>
+                    <PromptInputSelectTrigger className="h-8 w-auto rounded-full border border-border/70 px-3 py-1.5 text-xs">
+                      <span className="flex items-center gap-1.5">
+                        <PromptInputSelectValue placeholder={t('sessions.labels.runner')} />
+                      </span>
+                    </PromptInputSelectTrigger>
+                    <PromptInputSelectContent>
+                      {runnerDefs.map((def) => (
+                        <PromptInputSelectItem key={def.id} value={def.id}>
+                          <span className="flex items-center gap-2">
+                            <RunnerLogo runnerId={def.id} size={16} className="rounded-sm" />
+                            {getRunnerLabel(def.id)}
+                            {def.available !== true && (
+                              <Badge variant="outline" className="h-5 px-1.5 text-[10px] text-muted-foreground">
+                                {t('settings.runners.validation.checking')}
+                              </Badge>
+                            )}
+                          </span>
+                        </PromptInputSelectItem>
+                      ))}
+                    </PromptInputSelectContent>
+                  </PromptInputSelect>
+                )}
+
+                {runner && (
+                  <Popover open={modelOpen} onOpenChange={setModelOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        role="combobox"
+                        aria-expanded={modelOpen}
+                        className="h-8 w-auto rounded-full border border-border/70 px-3 py-1.5 text-xs font-normal"
+                        disabled={creating}
+                      >
+                        <span className={model ? '' : 'text-muted-foreground'}>
+                          {model || t('sessions.labels.model')}
+                        </span>
+                        <ChevronDown className="ml-1.5 h-3 w-3 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[300px] p-0" align="start">
+                      <Command shouldFilter={false}>
+                        <CommandInput
+                          placeholder={t('settings.runners.placeholders.searchOrTypeModel')}
+                          value={modelSearch}
+                          onValueChange={setModelSearch}
+                        />
+                        <CommandList>
+                          <CommandEmpty>{t('settings.runners.noModelsFound')}</CommandEmpty>
+                          {(() => {
+                            const filtered = modelSearch.trim()
+                              ? runnerModels.filter(m => m.toLowerCase().includes(modelSearch.toLowerCase()))
+                              : runnerModels;
+                            return filtered.length > 0 ? (
+                              <CommandGroup>
+                                {filtered.map((modelId) => (
+                                  <CommandItem
+                                    key={modelId}
+                                    value={modelId}
+                                    onSelect={() => {
+                                      handleModelChange(modelId);
+                                      setModelOpen(false);
+                                      setModelSearch('');
+                                    }}
+                                  >
+                                    <Check className={cn('mr-2 h-4 w-4', model === modelId ? 'opacity-100' : 'opacity-0')} />
+                                    {modelId}
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            ) : null;
+                          })()}
+                          {modelSearch.trim() && !runnerModels.includes(modelSearch.trim()) && (
+                            <CommandGroup heading={t('settings.runners.customModel')}>
+                              <CommandItem
+                                value={modelSearch.trim()}
+                                onSelect={() => {
+                                  handleModelChange(modelSearch.trim());
+                                  setModelOpen(false);
+                                  setModelSearch('');
+                                }}
+                              >
+                                <Plus className="mr-2 h-4 w-4" />
+                                {t('settings.runners.useCustomModel', { model: modelSearch.trim() })}
+                              </CommandItem>
+                            </CommandGroup>
+                          )}
+                          {model && (
+                            <CommandGroup>
+                              <CommandItem
+                                value="__clear__"
+                                onSelect={() => {
+                                  handleModelChange('');
+                                  setModelOpen(false);
+                                  setModelSearch('');
+                                }}
+                                className="text-muted-foreground"
+                              >
+                                {t('settings.runners.clearModel')}
+                              </CommandItem>
+                            </CommandGroup>
+                          )}
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                )}
+
+                {runnerLoading && (
+                  <span className="text-xs text-muted-foreground">{t('settings.runners.validation.checking')}</span>
+                )}
+
+                <PromptInputSelect value={mode} onValueChange={(value) => setMode(value as SessionMode)}>
+                  <PromptInputSelectTrigger className="h-8 w-auto rounded-full border border-border/70 px-3 py-1.5 text-xs">
+                    <span className="flex items-center gap-1.5">
+                      {/* {(() => {
+                        const ModeIcon = sessionModeConfig[mode]?.icon;
+                        return ModeIcon ? <ModeIcon className="h-3.5 w-3.5" /> : null;
+                      })()} */}
+                      <PromptInputSelectValue placeholder={t('sessions.labels.mode')} />
+                    </span>
+                  </PromptInputSelectTrigger>
+                  <PromptInputSelectContent>
+                    {MODES.map((modeValue) => {
+                      const ModeIcon = sessionModeConfig[modeValue]?.icon;
+                      return (
+                        <PromptInputSelectItem key={modeValue} value={modeValue}>
+                          <span className="flex items-center gap-2">
+                            {ModeIcon && <ModeIcon className="h-3.5 w-3.5" />}
+                            {t(`sessions.modes.${modeValue}`)}
+                          </span>
+                        </PromptInputSelectItem>
+                      );
+                    })}
+                  </PromptInputSelectContent>
+                </PromptInputSelect>
+              </div>
+
+              <PromptInputSubmit
+                disabled={!canCreate || !runner || creating || (!promptTemplate.trim() && selectedSpecIds.length === 0)}
+                status={creating ? 'submitted' : undefined}
+              />
+            </PromptInputFooter>
+          </PromptInput>
+
+        </div>
+      </div>
+    </div>
+  );
+}

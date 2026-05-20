@@ -1,0 +1,66 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+coverage/
+docs-site/node_modules/
+docs-site/build/
+docs-site/.docusaurus/
+tmp/
+.env
+.env.local
+test-gdd.pdf
+
+*.db
+.turbo
+*.tsbuildinfo
+.playwright-mcp/
+*.tsbuildinfo
+*.tgz
+GEMINI.md
+.worktrees/
+
+# Generated during npm publish (copied from root README.md)
+packages/cli/README.md
+packages/desktop/src-tauri/ui-standalone
+packages/desktop/src-tauri/target
+packages/desktop/src-tauri/resources
+packages/desktop/src-tauri/binaries/ui-server-*
+
+# Rust build artifacts
+rust/target/
+
+# IDE specific files
+.idea/
+
+# Binaries and auto-generated platform package files
+packages/cli/binaries/*/leanspec
+packages/cli/binaries/*/leanspec.exe
+packages/cli/binaries/*/package.json
+packages/cli/binaries/*/postinstall.js
+packages/mcp/binaries/*/leanspec-mcp
+packages/mcp/binaries/*/leanspec-mcp.exe
+packages/mcp/binaries/*/package.json
+packages/mcp/binaries/*/postinstall.js
+packages/http-server/binaries/*/leanspec-http
+packages/http-server/binaries/*/leanspec-http.exe
+packages/http-server/binaries/*/package.json
+packages/http-server/binaries/*/postinstall.js
+packages/http-server/binaries/**/ui-dist
+
+# package-lock.json files
+package-lock.json
+
+# System prompts
+GEMINI.md
+
+# Local VSCode settings
+.vscode/settings.json
+*.local.code-workspace
+
+# Sessions
+.leanspec/sessions/
+.leanspec-worktrees/
+
+# Aider
+.aider*
