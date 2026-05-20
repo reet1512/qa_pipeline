@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: qa-pipeline-api
+    runtime: node
+    plan: free
+    buildCommand: pnpm install
+    startCommand: node server.js

@@ -1,4 +1,10 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+
+const LOADING_MESSAGES = [
+  "Analyzing GDD...",
+  "Generating QA test cases...",
+  "Evaluating technical feasibility...",
+];
 
 type AnalysisResult = {
   game_summary: string;
@@ -27,6 +33,32 @@ function SectionCard({
   );
 }
 
+function getReadinessStyles(score: number) {
+  if (score >= 71) {
+    return { text: "text-emerald-400", bar: "bg-emerald-500" };
+  }
+  if (score >= 41) {
+    return { text: "text-yellow-400", bar: "bg-yellow-500" };
+  }
+  return { text: "text-red-400", bar: "bg-red-500" };
+}
+
+function DeploymentScore({ score }: { score: number }) {
+  const styles = getReadinessStyles(score);
+
+  return (
+    <div className="space-y-4">
+      <p className={`text-5xl font-bold tracking-tight ${styles.text}`}>{score}%</p>
+      <div className="h-3 w-full overflow-hidden rounded-full bg-zinc-800">
+        <div
+          className={`h-full rounded-full transition-all duration-500 ease-out ${styles.bar}`}
+          style={{ width: `${score}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
 function ListContent({ items }: { items: string[] }) {
   if (items.length === 0) {
     return <p className="text-sm text-zinc-500">None identified.</p>;
@@ -47,7 +79,21 @@ function App() {
   const [file, setFile] = useState<File | null>(null);
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [loading, setLoading] = useState(false);
+  const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!loading) {
+      return;
+    }
+
+    setLoadingMessageIndex(0);
+    const interval = setInterval(() => {
+      setLoadingMessageIndex((index) => (index + 1) % LOADING_MESSAGES.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [loading]);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
@@ -94,7 +140,7 @@ function App() {
                 const formData = new FormData();
                 formData.append("file", file);
 
-                const response = await fetch("http://localhost:3001/api/analyze", {
+                const response = await fetch("https://ai-gdd-backend.onrender.com/api/analyze", {
                   method: "POST",
                   body: formData,
                 });
@@ -122,15 +168,19 @@ function App() {
               }
             }}
           >
-            {loading ? "Analyzing..." : "Analyze GDD"}
+            Analyze GDD
           </button>
+
+          {loading && (
+            <p className="mt-3 text-sm text-zinc-300">{LOADING_MESSAGES[loadingMessageIndex]}</p>
+          )}
 
           {error && (
             <p className="mt-3 text-sm text-red-400">{error}</p>
           )}
         </div>
 
-        {analysis && (
+        {!loading && analysis && (
           <div className="flex flex-col gap-4">
             <SectionCard title="Game Summary">
               <p className="text-sm leading-relaxed text-zinc-200">
@@ -161,12 +211,7 @@ function App() {
             </SectionCard>
 
             <SectionCard title="Deployment Readiness Score">
-              <div className="flex items-end gap-3">
-                <span className="text-5xl font-bold text-white">
-                  {analysis.deployment_readiness_score}
-                </span>
-                <span className="pb-2 text-sm text-zinc-400">/ 100</span>
-              </div>
+              <DeploymentScore score={analysis.deployment_readiness_score} />
             </SectionCard>
           </div>
         )}

@@ -7,7 +7,7 @@ const OpenAI = require("openai");
 const { PDFParse } = require("pdf-parse");
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
