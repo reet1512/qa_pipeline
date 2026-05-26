@@ -148,6 +148,110 @@ function pickField(source, aliases) {
     return undefined;
 }
 
+function normalizeStringList(value) {
+    if (Array.isArray(value)) {
+        return value.map((item) => coerceToString(item)).filter(Boolean);
+    }
+    if (typeof value === "string" && value.trim()) {
+        return [value.trim()];
+    }
+    return [];
+}
+
+function normalizeTestCasePriority(value) {
+    const normalized = coerceToString(value).toLowerCase();
+
+    if (normalized.includes("critical")) {
+        return "Critical";
+    }
+    if (normalized.includes("high")) {
+        return "High";
+    }
+    if (normalized.includes("low")) {
+        return "Low";
+    }
+
+    return "Medium";
+}
+
+function normalizeTestCaseCategory(value) {
+    const normalized = coerceToString(value).toLowerCase();
+
+    if (normalized.includes("edge")) {
+        return "Edge Case";
+    }
+    if (normalized.includes("negative")) {
+        return "Negative";
+    }
+    if (normalized.includes("regression")) {
+        return "Regression";
+    }
+
+    return "Functional";
+}
+
+function parseStructuredTestCases(source) {
+    const suiteRaw = pickField(source, [
+        "qa_test_suite",
+        "qaTestSuite",
+        "test_suite",
+        "testSuite",
+    ]);
+
+    let suiteObject = suiteRaw;
+    const casesRaw = pickField(source, FIELD_ALIASES.qa_test_cases);
+
+    if (!suiteObject && Array.isArray(casesRaw) && casesRaw.length > 0) {
+        if (typeof casesRaw[0] === "object" && casesRaw[0] !== null) {
+            suiteObject = { system: "GDD Systems", test_cases: casesRaw };
+        }
+    }
+
+    if (!suiteObject || typeof suiteObject !== "object" || Array.isArray(suiteObject)) {
+        return { system: "GDD Systems", test_cases: [] };
+    }
+
+    const system = coerceToString(suiteObject.system) || "GDD Systems";
+    const rawCases = Array.isArray(suiteObject.test_cases) ? suiteObject.test_cases : [];
+    const test_cases = [];
+
+    let counter = 1;
+    for (const item of rawCases) {
+        if (!item || typeof item !== "object") {
+            continue;
+        }
+
+        const title = coerceToString(item.title ?? item.test_case ?? item.name);
+        if (!title) {
+            continue;
+        }
+
+        const id =
+            coerceToString(item.id) || `TC_${String(counter).padStart(3, "0")}`;
+
+        test_cases.push({
+            id,
+            title,
+            category: normalizeTestCaseCategory(item.category ?? item.type),
+            priority: normalizeTestCasePriority(item.priority ?? item.severity),
+            preconditions: normalizeStringList(
+                item.preconditions ?? item.precondition
+            ),
+            steps: normalizeStringList(item.steps ?? item.step),
+            expected_result: coerceToString(
+                item.expected_result ?? item.expectedResult ?? item.expected
+            ),
+        });
+
+        counter += 1;
+        if (test_cases.length >= 60) {
+            break;
+        }
+    }
+
+    return { system, test_cases };
+}
+
 function unwrapAnalysisObject(parsed) {
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
         return {};
@@ -241,6 +345,12 @@ function parseAnalysisResponse(raw) {
                   testing: 0,
               };
 
+    const qa_test_suite = parseStructuredTestCases(source);
+    const qa_test_cases = qa_test_suite.test_cases.map(
+        (testCase) =>
+            `[${testCase.id}] ${testCase.title} (${testCase.category}, ${testCase.priority})`
+    );
+
     return {
         game_summary: coerceToString(
             pickField(source, FIELD_ALIASES.game_summary)
@@ -251,9 +361,8 @@ function parseAnalysisResponse(raw) {
         development_risks: normalizeStringArray(
             pickField(source, FIELD_ALIASES.development_risks)
         ),
-        qa_test_cases: normalizeStringArray(
-            pickField(source, FIELD_ALIASES.qa_test_cases)
-        ),
+        qa_test_suite,
+        qa_test_cases,
         automation_possible_tests: normalizeStringArray(
             pickField(source, FIELD_ALIASES.automation_possible_tests)
         ),
@@ -1446,9 +1555,18 @@ app.post("/api/analyze", upload.single("file"), async (req, res) => {
             messages: [
                 {
                     role: "system",
-                    content: `You are a senior game QA analyst. Respond ONLY with valid JSON. Return a valid JSON object as the entire reply. Output JSON only — no markdown, no code fences, no wrapper objects, no extra text before or after the JSON.
+                    content: `You are a senior AAA Game QA Engineer and technical game analyst. Respond ONLY with valid JSON. Output JSON only — no markdown, no code fences, no extra text.
 
-Your JSON response must be a single top-level JSON object with every required key populated. All JSON array fields must be JSON arrays of strings. deployment_readiness_score must be a JSON integer from 0 to 100. repo_summary and scores must be nested JSON objects with the shapes described in the user message.`,
+For qa_test_suite: generate ONLY professional, executable QA test cases from the GDD. DO NOT summarize systems inside test cases. DO NOT explain mechanics. DO NOT provide recommendations inside test cases. DO NOT write paragraph-style test cases.
+
+Each test case must be executable by a human QA tester and include: id, title, category, priority, preconditions (string array), steps (string array), expected_result (string).
+
+Generate Functional, Edge Case, Negative, and Regression coverage across the GDD systems.
+
+Allowed priority values: Critical, High, Medium, Low
+Allowed category values: Functional, Edge Case, Negative, Regression
+
+Other top-level fields remain concise strings/arrays as specified in the user message.`,
                 },
                 {
                     role: "user",
@@ -1460,7 +1578,7 @@ Required JSON keys:
 - game_summary (JSON string)
 - technical_feasibility (JSON string)
 - development_risks (JSON string array)
-- qa_test_cases (JSON string array)
+- qa_test_suite (JSON object with system + test_cases array)
 - automation_possible_tests (JSON string array)
 - manual_tests_required (JSON string array)
 - deployment_readiness_score (JSON integer 0-100)
@@ -1469,6 +1587,24 @@ Required JSON keys:
 - critical_issues (JSON string array)
 - recommendations (JSON string array)
 - missing_best_practices (JSON string array)
+
+qa_test_suite JSON object:
+{
+  "system": "Primary GDD system name or overview label",
+  "test_cases": [
+    {
+      "id": "TC_001",
+      "title": "",
+      "category": "Functional | Edge Case | Negative | Regression",
+      "priority": "Critical | High | Medium | Low",
+      "preconditions": [],
+      "steps": [],
+      "expected_result": ""
+    }
+  ]
+}
+
+Generate at least 12 test cases with balanced coverage across all four categories.
 
 repo_summary JSON object:
 {
