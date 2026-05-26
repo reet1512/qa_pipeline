@@ -9,7 +9,14 @@ const { PDFParse } = require("pdf-parse");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+const corsOrigin = process.env.CORS_ORIGIN;
+app.use(
+    cors({
+        origin: corsOrigin
+            ? corsOrigin.split(",").map((entry) => entry.trim())
+            : "*",
+    })
+);
 app.use(express.json());
 
 const upload = multer({

@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { GitHubRepoAnalyzer } from "./components/GitHubRepoAnalyzer";
+import { API_BASE } from "./lib/api";
 
 const LOADING_MESSAGES = [
   "Analyzing GDD...",
@@ -297,7 +298,7 @@ function App() {
                 const formData = new FormData();
                 formData.append("file", file);
 
-                const response = await fetch("http://localhost:3001/api/analyze", {
+                const response = await fetch(`${API_BASE}/api/analyze`, {
                   method: "POST",
                   body: formData,
                 });
